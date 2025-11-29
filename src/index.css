@@ -7,7 +7,7 @@ body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper.png");
+  background-image: var(--wallpaper-url, url("/images/wallpaper.png"));
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -37,7 +37,7 @@ body {
   }
 
   nav {
-    @apply flex justify-between items-center bg-white/50 backdrop-blur-3xl p-2 px-5 select-none;
+    @apply flex justify-between items-center bg-white/50 backdrop-blur-3xl p-3 px-5 select-none;
 
     div {
       @apply flex items-center max-sm:w-full max-sm:justify-center gap-5;
@@ -106,11 +106,11 @@ body {
     }
 
     .minimize {
-      @apply size-3.5 rounded-full bg-[#ffc030];
+      @apply size-3.5 rounded-full bg-[#ffc030] cursor-pointer;
     }
 
     .maximize {
-      @apply size-3.5 rounded-full bg-[#2acb42];
+      @apply size-3.5 rounded-full bg-[#2acb42] cursor-pointer;
     }
   }
 
@@ -237,7 +237,7 @@ body {
   }
 
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-3xl h-[70vh] absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     .sidebar {
       @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
@@ -266,38 +266,42 @@ body {
     }
 
     .gallery {
-      @apply p-5;
+      @apply p-5 flex-1 overflow-y-auto min-h-0;
 
       ul {
-        @apply grid grid-cols-5 grid-rows-5 gap-2.5;
+        column-count: 2;
+        column-gap: 0.625rem; /* 2.5 * 0.25rem */
+      }
+      @media (min-width: 640px) {
+        .gallery ul { column-count: 3; }
+      }
+      @media (min-width: 768px) {
+        .gallery ul { column-count: 4; }
+      }
+      @media (min-width: 1920px) {
+        .gallery ul { column-count: 6; }
+      }
 
-        li {
-          img {
-            @apply size-full object-cover rounded-lg;
-          }
-
-          &:first-child {
-            @apply row-start-1 row-span-3 col-start-1 col-span-3;
-          }
-
-          &:nth-child(2) {
-            @apply row-start-1 row-span-3 col-start-4 col-span-2;
-          }
-
-          &:nth-child(3) {
-            @apply row-start-4 row-span-2 col-start-3 col-span-3;
-          }
-
-          &:last-child {
-            @apply row-start-4 row-span-2 col-start-1 col-span-2;
-          }
-        }
+      li {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 0.625rem;
+        break-inside: avoid;
+        -webkit-column-break-inside: avoid;
+        -moz-column-break-inside: avoid;
+        cursor: pointer;
+      }
+      li img {
+        @apply rounded-lg;
+        width: 100%;
+        height: auto;
       }
     }
   }
 
   #resume {
-    @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    /* Give the window a fixed height in non-maximized state so inner content can scroll */
+    @apply w-fit h-[70vh] absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     #window-header {
       h2 {
@@ -337,7 +341,7 @@ body {
       @apply flex-1 p-8 bg-white max-w-2xl relative;
 
       li {
-        @apply absolute flex items-center flex-col gap-3;
+        @apply absolute flex items-center flex-col gap-3 cursor-pointer;
 
         img {
           @apply object-contain object-center size-16 relative group-hover:scale-105;
@@ -351,7 +355,7 @@ body {
   }
 
   #txtfile {
-    @apply w-md absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-md h-[60vh] absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
