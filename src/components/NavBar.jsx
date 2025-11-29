@@ -4,7 +4,7 @@ import useWindowStore from '#store/window';
 
 const NavBar = () => {
 
-  const {openWindow}= useWindowStore();
+  const { openWindow } = useWindowStore();
   
   return (
     <nav>
@@ -23,8 +23,9 @@ const NavBar = () => {
         <ul>
           {navIcons.map(({ id, img }) => (
             <li key={id}>
-              <img 
-                src={img} className="icon-hover"
+              <img
+                src={img}
+                className="icon-hover cursor-pointer"
                 alt={`icon-${id}`}
               />
             </li>

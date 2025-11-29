@@ -77,18 +77,20 @@ const Welcome = () => {
       <p ref={subtitleRef}>
         {renderText(
           "Hey, I'm Swastik! Welcome to my",
-          "text-3xl font-georama",
+          "text-2xl sm:text-3xl font-georama",
           100
         )}
       </p>
       <h1 ref={titleRef} className="mt-7">
         {renderText(
           "portfolio",
-          "text-9xl italic font-georama" 
+          "text-8xl sm:text-7xl md:text-9xl italic font-georama" 
         )}
       </h1>
       <div className="small-screen">
-        <p>This portfolio is designed for desktop/tablet screens only.</p>
+        <p>Mobile version is still in progress. For the full experience, use a larger screen or visit the desktop site. </p>
+        <br />
+        <a href="https://swastiksharma15.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" className="flex-center">For Mobile Devices visit here</a>
       </div>
     </section>
   );
