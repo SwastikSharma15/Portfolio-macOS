@@ -27,12 +27,17 @@ const navIcons = [
   },
   {
     id: 3,
-    img: "/icons/user.svg",
+    img: "/icons/music.svg",
   },
   {
     id: 4,
+    img: "/icons/user.svg",
+  },
+  {
+    id: 5,
     img: "/icons/mode.svg",
   },
+
 ];
 
 const dockApps = [
@@ -67,10 +72,10 @@ const dockApps = [
     canOpen: true,
   },
   {
-    id: "trash",
-    name: "Archive", // was "Trash"
-    icon: "trash.png",
-    canOpen: false,
+    id: "music",
+    name: "Music", // was "Trash"
+    icon: "music.png",
+    canOpen: true,
   },
 ];
 
@@ -196,7 +201,7 @@ const gallery = [
   },
   {
     id: 4,
-    img: "/images/gal4.png",
+    img: "/images/gal4.webp",
   },
   {
     id: 5,
@@ -220,7 +225,7 @@ const gallery = [
   },
   {
     id: 10,
-    img: "/images/gal9.png",
+    img: "/images/gal9.webp",
   },
   {
     id: 11,
@@ -236,11 +241,11 @@ const gallery = [
   },
   {
     id: 14,
-    img: "/images/gal13.png",
+    img: "/images/gal13.webp",
   },
   {
     id: 15,
-    img: "/images/gal14.png",
+    img: "/images/gal14.jpg",
   },
   {
     id: 16,
