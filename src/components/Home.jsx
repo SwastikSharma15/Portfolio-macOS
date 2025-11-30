@@ -35,6 +35,7 @@ const Home = () => {
             <img 
               src="/images/folder.png"
               alt={project.name}
+              loading='lazy'
             />
             <p>{project.name}</p>
           </li>
