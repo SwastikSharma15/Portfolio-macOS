@@ -100,6 +100,11 @@ body {
       img[src*="music.png"] {
         @apply scale-92;
       }
+
+      /* Resize trash icon */
+      img[src*="trash.png"] {
+        @apply scale-92;
+      }
     }
   }
 
