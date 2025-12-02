@@ -404,7 +404,7 @@ body {
   }
 
   #music {
-    @apply max-w-3xl w-full absolute top-40 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-3xl w-full absolute top-5 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     .sidebar {
       @apply w-4/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;

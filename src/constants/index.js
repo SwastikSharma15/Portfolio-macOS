@@ -24,14 +24,18 @@ const navIcons = [
   {
     id: 2,
     img: "/icons/search.svg",
+    type: "safari"
   },
   {
     id: 3,
     img: "/icons/music.svg",
+    type: "music",
   },
   {
     id: 4,
     img: "/icons/user.svg",
+    type: "finder",
+    action: "about",
   },
   {
     id: 5,
