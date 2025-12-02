@@ -81,6 +81,13 @@ const dockApps = [
     icon: "music.png",
     canOpen: true,
   },
+  {
+    id: "finder",
+    name: "Trash",
+    icon: "trash.png",
+    canOpen: true,
+    action: "trash",
+  },
 ];
 
 const blogPosts = [
@@ -264,15 +271,39 @@ const gallery = [
 const songs = [
   {
     id: 1,
-    title: "City Ruins - ",
-    src: "/audio/loop.mp3",
-    cover: "/images/gal1.png",
+    title: "City Ruins - Rays of Light",
+    src: "/audio/City Ruins - Rays of Light (NieR_Automata Original Soundtrack)Audio.mp3",
+    cover: "/images/city.webp",
   },
   {
     id: 2,
-    title: "City Ruins - Rays of Light",
-    src: "/audio/City Ruins - Rays of Light (NieR_Automata Original Soundtrack)Audio.mp3",
-    cover: "/images/gal4.png",
+    title: "I Really Want to Stay at Your House",
+    src: "/audio/lucysong.mp3",
+    cover: "/images/lucysong.jpg",
+  },
+  {
+    id: 3,
+    title: "Feel It",
+    src: "/audio/feelit.mp3",
+    cover: "/images/feelit.jpg",
+  },
+  {
+    id: 4,
+    title: "Ma Meilleure Ennemie",
+    src: "/audio/arcane.mp3",
+    cover: "/images/arcane.jpg",
+  },
+  {
+    id: 5,
+    title: "Fire Again",
+    src: "/audio/fireagain.mp3",
+    cover: "/images/fireagain.jpg",
+  },
+  {
+    id: 6,
+    title: "Die For You",
+    src: "/audio/dieforyou.mp3",
+    cover: "/images/dieforyou.jpg",
   },
 ];
 
@@ -724,6 +755,7 @@ const WINDOW_CONFIG = {
   txtfile: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
   imgfile: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
   music: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
+  trash: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
 
 export { INITIAL_Z_INDEX, WINDOW_CONFIG };
