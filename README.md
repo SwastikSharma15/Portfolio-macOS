@@ -125,7 +125,6 @@ html, body {
 This project can be deployed to:
 - Vercel
 - Netlify
-- GitHub Pages
 - Any static hosting service
 
 Make sure to configure the base path if deploying to a subdirectory.
