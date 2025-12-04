@@ -82,7 +82,7 @@ const dockApps = [
     canOpen: true,
   },
   {
-    id: "finder",
+    id: "trash", // unique id to avoid duplicate keys in Dock
     name: "Trash",
     icon: "trash.png",
     canOpen: true,
@@ -269,17 +269,18 @@ const gallery = [
 ];
 
 const songs = [
+  
   {
     id: 1,
-    title: "City Ruins - Rays of Light",
-    src: "/audio/City Ruins - Rays of Light (NieR_Automata Original Soundtrack)Audio.mp3",
-    cover: "/images/city.webp",
-  },
-  {
-    id: 2,
     title: "I Really Want to Stay at Your House",
     src: "/audio/lucysong.mp3",
     cover: "/images/lucysong.jpg",
+  },
+  {
+    id: 2,
+    title: "City Ruins - Rays of Light",
+    src: "/audio/City Ruins - Rays of Light (NieR_Automata Original Soundtrack)Audio.mp3",
+    cover: "/images/city.webp",
   },
   {
     id: 3,
@@ -304,6 +305,42 @@ const songs = [
     title: "Die For You",
     src: "/audio/dieforyou.mp3",
     cover: "/images/dieforyou.jpg",
+  },
+  {
+    id: 7,
+    title: "Ticking Away",
+    src: "/audio/Ticking Away.mp3",
+    cover: "/images/tickingAway.jpg",
+  },
+  {
+    id: 8,
+    title: "Be a flower",
+    src: "/audio/Be a flower.mp3",
+    cover: "/images/maomao.jpg",
+  },
+  {
+    id: 9,
+    title: "Anytime Anywhere",
+    src: "/audio/Anytime Anywhere.mp3",
+    cover: "/images/anytimeanywhere.jpg",
+  },
+  {
+    id: 10,
+    title: "The Path to Becoming a Hero",
+    src: "/audio/The Path to Becoming a Hero.mp3",
+    cover: "/images/miyabi.jpg",
+  },
+  {
+    id: 11,
+    title: "Dandelion",
+    src: "/audio/Dandelion.mp3",
+    cover: "/images/dandelion.jpg",
+  },
+  {
+    id: 12,
+    title: "Odoriko",
+    src: "/audio/odoriko.mp3",
+    cover: "/images/odorika.jpg",
   },
 ];
 
@@ -732,6 +769,15 @@ const TRASH_LOCATION = {
       fileType: "img",
       position: "top-20 left-55",
       imageUrl: "/images/trash-2.jpg",
+    },
+    {
+      id: 5,
+      name: "Old Portfolio.com",
+      icon: "/images/safari.png",
+      kind: "file",
+      fileType: "url",
+      href: "https://swastiksharma15.github.io/Portfolio/",
+      position: "top-10 right-10",
     },
   ],
 };
