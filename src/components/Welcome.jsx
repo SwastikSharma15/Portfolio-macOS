@@ -77,7 +77,7 @@ const Welcome = () => {
       <p ref={subtitleRef}>
         {renderText(
           "Hey, I'm Swastik! Welcome to my",
-          "text-2xl sm:text-3xl font-georama text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] tracking-wide",
+          "text-xl sm:text-3xl font-georama text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] tracking-wide",
           100
         )}
       </p>
