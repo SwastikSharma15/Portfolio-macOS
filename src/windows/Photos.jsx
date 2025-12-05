@@ -11,9 +11,10 @@ const Photos = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div id='window-header'>
+      <div id='window-header' className='window-drag-handle'>
         <WindowControls target="photos" />
-        <div className='w-full flex justify-end items-center gap-3'>
+        <h2 className='flex-1 text-center font-bold'>Gallery</h2>
+        <div className='flex justify-end items-center gap-3'>
           <a
             href={`mailto:${email}`}
             title={`Email: ${email}`}

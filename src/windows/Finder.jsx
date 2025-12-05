@@ -45,8 +45,11 @@ const Finder = () => {
 
   return (
     <>
-      <div id="window-header">
+      <div id="window-header" className="window-drag-handle">
         <WindowControls target="finder" />
+        <h2 className="font-bold">
+          Swastik's Portfolio
+        </h2>
         <Search className="icon" />
       </div>
       <div className="flex bg-white h-full">
