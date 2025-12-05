@@ -247,7 +247,7 @@ body {
   }
 
   #photos {
-    @apply max-w-3xl h-[70vh] absolute top-55 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-3xl h-[600px] absolute top-25 left-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     .sidebar {
       @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
@@ -311,7 +311,7 @@ body {
 
   #resume {
     /* Give the window a fixed height in non-maximized state so inner content can scroll */
-    @apply w-fit h-[70vh] absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-fit h-[600px] absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     #window-header {
       h2 {
@@ -365,7 +365,7 @@ body {
   }
 
   #txtfile {
-    @apply w-md h-[60vh] absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-md h-[550px] absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
