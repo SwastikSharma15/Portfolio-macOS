@@ -8,6 +8,17 @@ const NavBar = () => {
   const { openWindow } = useWindowStore();
   const { setActiveLocation } = useLocationStore();
   
+  const handleNavLinkClick = (type) => {
+    if (!type) return;
+
+    // Ensure Finder opens at Work instead of Trash by default
+    if (type === 'finder') {
+      setActiveLocation(locations.work);
+    }
+
+    openWindow(type);
+  };
+
   const handleIconClick = ({ type, action }) => {
     if (!type) return;
     
@@ -26,7 +37,7 @@ const NavBar = () => {
         <p className="font-bold">Swastik's Portfolio</p>
         <ul>
           {navLinks.map(({ name, id, type }) => (
-            <li key={id} onClick={() => openWindow(type)}>
+            <li key={id} onClick={() => handleNavLinkClick(type)}>
               <p>{name}</p>
             </li>
           ))}
