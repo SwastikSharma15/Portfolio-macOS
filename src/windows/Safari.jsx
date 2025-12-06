@@ -7,7 +7,7 @@ import React from 'react'
 const Safari = () => {
   return (
     <>
-      <div id='window-header'>
+      <div id='window-header' className='window-drag-handle'>
         <WindowControls target="safari" />
         <PanelLeft className='ml-10 icon' />
         <div className='flex items-center gap-1 ml-5'>
