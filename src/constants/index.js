@@ -403,7 +403,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "img",
           position: "top-52 left-80",
-          imageUrl: "/images/project-2.png",
+          imageUrl: "/images/cyberpunk.png",
         },
         {
           id: 5,
@@ -456,7 +456,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "img",
           position: "top-52 right-80",
-          imageUrl: "/images/project-1.png",
+          imageUrl: "/images/ShopKar.webp",
         },
         {
           id: 5,
@@ -509,7 +509,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "img",
           position: "top-67 right-85",
-          imageUrl: "/images/project-3.png",
+          imageUrl: "/images/tidy_tasks.png",
         },
         {
           id: 5,
@@ -562,7 +562,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "img",
           position: "top-52 left-80",
-          imageUrl: "/images/project-2.png",
+          imageUrl: "/images/movieplex.webp",
         },
         {
           id: 5,
@@ -615,7 +615,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "img",
           position: "top-15 right-30",
-          imageUrl: "/images/project-2.png",
+          imageUrl: "/images/mojito.png",
         },
         {
           id: 5,
