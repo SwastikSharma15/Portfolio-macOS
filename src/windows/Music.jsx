@@ -96,7 +96,7 @@ const Music = () => {
           </div>
           <div className='mt-6 text-center'>
             <h3 className='text-3xl font-bold'>{current?.title || 'Unknown'}</h3>
-            <p className='text-sm text-gray-500 mt-1'>Audio</p>
+            <p className='text-sm text-gray-500 mt-1'>{current?.author || 'Unknown'}</p>
           </div>
           <div className='sliders mt-3'>
             <div className='flex-1'>
