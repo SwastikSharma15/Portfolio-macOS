@@ -105,6 +105,11 @@ body {
       img[src*="trash.png"] {
         @apply scale-92;
       }
+
+      /* Resize code icon */
+      img[src*="code.png"] {
+        @apply scale-82;
+      }
     }
   }
 
@@ -447,4 +452,20 @@ body {
       }
     }
     }
+
+  #vscode {
+    @apply w-6xl h-[700px] absolute top-10 right-20 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    #window-header {
+      @apply flex items-center justify-between bg-gray-50 border-b border-gray-200 select-none text-sm text-gray-400;
+
+      h2 {
+        @apply flex-1 text-center font-bold text-sm;
+      }
+
+      a {
+        @apply flex items-center;
+      }
+    }
+  }
 }
