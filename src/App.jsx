@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import React, { Suspense, lazy, useEffect, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { NavBar, Welcome, Dock, Home } from '#components';
 import useWindowStore from '#store/window'
 
@@ -54,27 +55,30 @@ const App = () => {
     }
   }, []);
   return (
-    <main>
-      <NavBar />
-      <Welcome />
-      <Dock />
-      {eagerMount ? (
-        <>
-          <Suspense fallback={null}><Terminal /></Suspense>
-          <Suspense fallback={null}><Safari /></Suspense>
-          <Suspense fallback={null}><Resume /></Suspense>
-          <Suspense fallback={null}><Image /></Suspense>
-          <Suspense fallback={null}><Text /></Suspense>
-          <Suspense fallback={null}><Finder /></Suspense>
-          <Suspense fallback={null}><Contact /></Suspense>
-          <Suspense fallback={null}><Photos /></Suspense>
-          <Suspense fallback={null}><Music /></Suspense>
-          <Suspense fallback={null}><VSCode /></Suspense>
-          <Suspense fallback={null}><Trash /></Suspense>
-        </>
-      ) : null}
-      <Home />
-    </main>
+    <>
+      <main>
+        <NavBar />
+        <Welcome />
+        <Dock />
+        {eagerMount ? (
+          <>
+            <Suspense fallback={null}><Terminal /></Suspense>
+            <Suspense fallback={null}><Safari /></Suspense>
+            <Suspense fallback={null}><Resume /></Suspense>
+            <Suspense fallback={null}><Image /></Suspense>
+            <Suspense fallback={null}><Text /></Suspense>
+            <Suspense fallback={null}><Finder /></Suspense>
+            <Suspense fallback={null}><Contact /></Suspense>
+            <Suspense fallback={null}><Photos /></Suspense>
+            <Suspense fallback={null}><Music /></Suspense>
+            <Suspense fallback={null}><VSCode /></Suspense>
+            <Suspense fallback={null}><Trash /></Suspense>
+          </>
+        ) : null}
+        <Home />
+      </main>
+      <Analytics />
+    </>
   )
 }
 
