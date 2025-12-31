@@ -527,7 +527,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "img",
           position: "top-67 right-85",
-          imageUrl: "/images/tidy_tasks.png",
+          imageUrl: "/images/tidytask.png",
         },
         {
           id: 5,
