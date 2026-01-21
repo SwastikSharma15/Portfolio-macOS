@@ -2,6 +2,7 @@ import gsap from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import React, { Suspense, lazy, useEffect, useState } from 'react'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { NavBar, Welcome, Dock, Home } from '#components';
 import useWindowStore from '#store/window'
 
@@ -78,6 +79,7 @@ const App = () => {
         <Home />
       </main>
       <Analytics />
+      <SpeedInsights />
     </>
   )
 }
