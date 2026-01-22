@@ -196,11 +196,13 @@ const Contact = () => {
             >
               <div className='grid gap-4 sm:grid-cols-2'>
                 <div className='space-y-1 sm:col-span-1'>
-                  <label className='text-sm text-gray-700'>Name</label>
+                  <label htmlFor="contact-name" className='text-sm text-gray-700'>Name</label>
                   <input
+                    id="contact-name"
                     type='text'
                     className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-400'
                     placeholder='Your name'
+                    autoComplete="name"
                     {...register('name', { required: 'Name is required' })}
                   />
                   {errors.name && (
@@ -208,11 +210,13 @@ const Contact = () => {
                   )}
                 </div>
                 <div className='space-y-1 sm:col-span-1'>
-                  <label className='text-sm text-gray-700'>Email</label>
+                  <label htmlFor="contact-email" className='text-sm text-gray-700'>Email</label>
                   <input
+                    id="contact-email"
                     type='email'
                     className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-400'
                     placeholder='you@example.com'
+                    autoComplete="email"
                     {...register('email', {
                       required: 'Email is required',
                       pattern: {
@@ -228,11 +232,13 @@ const Contact = () => {
               </div>
 
               <div className='space-y-1'>
-                <label className='text-sm text-gray-700'>Message</label>
+                <label htmlFor="contact-message" className='text-sm text-gray-700'>Message</label>
                 <textarea
+                  id="contact-message"
                   rows={5}
                   className='w-full resize-y rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-400'
                   placeholder="What's on your mind?"
+                  autoComplete="off"
                   {...register('message', { required: 'Message is required', minLength: { value: 10, message: 'Please write at least 10 characters' } })}
                 />
                 {errors.message && (
@@ -240,8 +246,16 @@ const Contact = () => {
                 )}
               </div>
 
-              {/* honeypot field supported by web3forms */}
-              <input type='checkbox' className='hidden' style={{ display: 'none' }} tabIndex={-1} autoComplete='off' {...register('botcheck')} />
+              {/* Hidden text honeypot field */}
+              <input
+                type="text"
+                id="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+                {...register('botcheck')}
+              />
 
               {result && (
                 <div className={`rounded-md border px-3 py-2 text-sm ${isSuccess ? 'border-green-300 bg-green-50 text-green-700' : 'border-red-300 bg-red-50 text-red-700'}`}>
