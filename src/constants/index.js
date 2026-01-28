@@ -78,13 +78,19 @@ const dockApps = [
   {
     id: "vscode",
     name: "VS Code",
-    icon: "code.png",
+    icon: "code2.png",
     canOpen: true,
   },
   {
     id: "music",
     name: "Music", // was "Trash"
     icon: "music.png",
+    canOpen: true,
+  },
+  {
+    id: "ner",
+    name: "SlapNer",
+    icon: "game.png", // You can update this later
     canOpen: true,
   },
   {
@@ -876,6 +882,7 @@ const WINDOW_CONFIG = {
   txtfile: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
   imgfile: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
   music: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
+  ner: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
   trash: { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
 
