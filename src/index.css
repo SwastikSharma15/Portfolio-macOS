@@ -36,6 +36,15 @@ body {
     @apply w-dvw h-dvh overflow-hidden;
   }
 
+  /* Custom black grab cursor - using move cursor as fallback */
+  .window-drag-handle {
+    cursor: move !important;
+  }
+  
+  .window-drag-handle:active {
+    cursor: move !important;
+  }
+
   nav {
     @apply flex justify-between items-center bg-white/50 backdrop-blur-3xl p-3 px-5 select-none;
 
