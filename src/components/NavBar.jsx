@@ -4,6 +4,7 @@ import useWindowStore from '#store/window';
 import useLocationStore from '#store/location';
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { Draggable } from "gsap/Draggable";
 
 const NavBar = () => {
 
@@ -12,10 +13,18 @@ const NavBar = () => {
 
   const wrapperRef = useRef(null);
   const gifRef = useRef(null);
+  const logoPortfolioRef = useRef(null);
+  const dateTimeRef = useRef(null);
+  const logoPortfolioPlaceholderRef = useRef(null);
+  const dateTimePlaceholderRef = useRef(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const gif = gifRef.current;
+    const logoPortfolio = logoPortfolioRef.current;
+    const dateTime = dateTimeRef.current;
+    const logoPortfolioPlaceholder = logoPortfolioPlaceholderRef.current;
+    const dateTimePlaceholder = dateTimePlaceholderRef.current;
 
     if (!wrapper || !gif) return;
 
@@ -24,6 +33,14 @@ const NavBar = () => {
       opacity: 0,
       y: 8
     });
+
+    // Hide placeholders initially
+    if (logoPortfolioPlaceholder) {
+      gsap.set(logoPortfolioPlaceholder, { opacity: 0 });
+    }
+    if (dateTimePlaceholder) {
+      gsap.set(dateTimePlaceholder, { opacity: 0 });
+    }
 
     const enter = () => {
       gsap.to(gif, {
@@ -45,6 +62,84 @@ const NavBar = () => {
 
     wrapper.addEventListener("mouseenter", enter);
     wrapper.addEventListener("mouseleave", leave);
+
+    // Implement drag functionality for logo + portfolio text
+    if (logoPortfolio && logoPortfolioPlaceholder) {
+      const snapThreshold = 500;
+
+      Draggable.create(logoPortfolio, {
+        type: "x,y",
+        bounds: "body",
+        cursor: "grab",
+        activeCursor: "grabbing",
+        onDragStart: function () {
+          // Show dotted placeholder
+          gsap.to(logoPortfolioPlaceholder, { opacity: 1, duration: 0.2 });
+        },
+        onDrag: function () {
+          const isWithinSnapZone = 
+            Math.abs(this.x) < snapThreshold && 
+            Math.abs(this.y) < snapThreshold;
+        },
+        onDragEnd: function () {
+          const isWithinSnapZone = 
+            Math.abs(this.x) < snapThreshold && 
+            Math.abs(this.y) < snapThreshold;
+
+          if (isWithinSnapZone) {
+            // Snap back to original position
+            gsap.to(this.target, {
+              x: 0,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+          
+          // Hide placeholder
+          gsap.to(logoPortfolioPlaceholder, { opacity: 0, duration: 0.2 });
+        }
+      });
+    }
+
+    // Implement drag functionality for date & time
+    if (dateTime && dateTimePlaceholder) {
+      const snapThreshold = 500;
+
+      Draggable.create(dateTime, {
+        type: "x,y",
+        bounds: "body",
+        cursor: "grab",
+        activeCursor: "grabbing",
+        onDragStart: function () {
+          // Show dotted placeholder
+          gsap.to(dateTimePlaceholder, { opacity: 1, duration: 0.2 });
+        },
+        onDrag: function () {
+          const isWithinSnapZone = 
+            Math.abs(this.x) < snapThreshold && 
+            Math.abs(this.y) < snapThreshold;
+        },
+        onDragEnd: function () {
+          const isWithinSnapZone = 
+            Math.abs(this.x) < snapThreshold && 
+            Math.abs(this.y) < snapThreshold;
+
+          if (isWithinSnapZone) {
+            // Snap back to original position
+            gsap.to(this.target, {
+              x: 0,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+          
+          // Hide placeholder
+          gsap.to(dateTimePlaceholder, { opacity: 0, duration: 0.2 });
+        }
+      });
+    }
 
     return () => {
       wrapper.removeEventListener("mouseenter", enter);
@@ -77,14 +172,21 @@ const NavBar = () => {
   return (
     <nav>
       <div>
-        <img src="/images/logo.svg" alt="logo" />
-        <div className="portfolio-wrapper" ref={wrapperRef}>
-          <p className="font-bold portfolio-text">Swastik's Portfolio</p>
-
-          <div className="portfolio-text-container">
-            <div className="overlay-gif" ref={gifRef}></div>
+        {/* Draggable logo + portfolio section */}
+        <div className="logo-portfolio-container" ref={logoPortfolioRef}>
+          <img src="/images/logo.svg" alt="logo" />
+          <div className="portfolio-wrapper" ref={wrapperRef}>
+            <p className="font-bold portfolio-text">Swastik's Portfolio</p>
+            <div className="portfolio-text-container">
+              <div className="overlay-gif" ref={gifRef}></div>
+            </div>
           </div>
         </div>
+        
+        {/* Placeholder for logo + portfolio */}
+        <div className="logo-portfolio-placeholder" ref={logoPortfolioPlaceholderRef}>
+        </div>
+
         <ul>
           {navLinks.map(({ name, id, type }) => (
             <li key={id} onClick={() => handleNavLinkClick(type)}>
@@ -105,9 +207,15 @@ const NavBar = () => {
             </li>
           ))}
         </ul>
-        <time>
-          {dayjs().format('ddd MMM D h:mm A')}
+        
+        {/* Draggable date & time */}
+        <time ref={dateTimeRef}>
+          {dayjs().format('ddd, MMM D • h:mm A')}
         </time>
+        
+        {/* Placeholder for date & time */}
+        <div className="datetime-placeholder" ref={dateTimePlaceholderRef}>
+        </div>
       </div>
     </nav>
   );

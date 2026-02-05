@@ -59,6 +59,7 @@ body {
     .portfolio-wrapper {
       position: relative;
       display: inline-block;
+      user-select: none; /* Prevent text selection during drag */
     }
 
     .portfolio-text {
@@ -100,8 +101,36 @@ body {
       }
     }
 
+    .logo-portfolio-container {
+      @apply flex items-center gap-5;
+      user-select: none;
+    }
+
+    .logo-portfolio-placeholder {
+      position: absolute;
+      border: 0.075rem dashed rgba(0, 0, 0, 0.5);
+      border-radius: 0.375rem;
+      background-color: transparent;
+      pointer-events: none;
+      width: 180px; /* Approximate width of logo + text */
+      height: 30px; /* Approximate height */
+    }
+
+    .datetime-placeholder {
+      position: absolute;
+      border: 0.075rem dashed rgba(0, 0, 0, 0.5);
+      border-radius: 0.375rem;
+      background-color: transparent;
+      pointer-events: none;
+      width: 140px; /* Approximate width of date/time */
+      height: 24px; /* Approximate height */
+      top: 5;
+      right: 1rem;
+    }
+
     time {
       @apply text-sm font-medium text-black;
+      user-select: none;
     }
   }
 }
