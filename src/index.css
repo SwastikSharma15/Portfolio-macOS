@@ -60,6 +60,11 @@ body {
       position: relative;
       display: inline-block;
       user-select: none; /* Prevent text selection during drag */
+      
+      /* Ensure visible on mobile */
+      @media (max-width: 640px) {
+        display: inline-block !important;
+      }
     }
 
     .portfolio-text {
@@ -104,6 +109,21 @@ body {
     .logo-portfolio-container {
       @apply flex items-center gap-5;
       user-select: none;
+      
+      /* Make smaller on mobile but keep on left */
+      @media (max-width: 640px) {
+        display: flex !important;
+        gap: 0.75rem;
+        
+        img {
+          width: 24px;
+          height: 24px;
+        }
+        
+        .portfolio-text {
+          font-size: 0.875rem;
+        }
+      }
     }
 
     .logo-portfolio-placeholder {
@@ -165,10 +185,15 @@ body {
     pointer-events: none;
     width: 600px;
     height: 200px;
+    
+    /* Hide on mobile */
+    @media (max-width: 640px) {
+      display: none;
+    }
   }
 
   #dock {
-    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:scale-75;
+    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:scale-[0.6];
 
     .dock-container {
       @apply bg-white/20 backdrop-blur-md justify-between rounded-2xl p-1.5 flex items-end gap-1.5;
