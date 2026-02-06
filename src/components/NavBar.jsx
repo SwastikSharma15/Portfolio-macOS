@@ -72,6 +72,7 @@ const NavBar = () => {
         bounds: "body",
         cursor: "grab",
         activeCursor: "grabbing",
+        zIndexBoost: false, // Prevent z-index from increasing on drag
         onDragStart: function () {
           // Show dotted placeholder
           gsap.to(logoPortfolioPlaceholder, { opacity: 1, duration: 0.2 });
@@ -111,6 +112,7 @@ const NavBar = () => {
         bounds: "body",
         cursor: "grab",
         activeCursor: "grabbing",
+        zIndexBoost: false, // Prevent z-index from increasing on drag
         onDragStart: function () {
           // Show dotted placeholder
           gsap.to(dateTimePlaceholder, { opacity: 1, duration: 0.2 });

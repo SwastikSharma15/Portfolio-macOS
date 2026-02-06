@@ -87,6 +87,7 @@ const Welcome = () => {
         bounds: "body",
         cursor: "grab",
         activeCursor: "grabbing",
+        zIndexBoost: false, // Prevent z-index from increasing on drag
         onDragStart: function () {
           // Show dotted placeholder
           gsap.to(welcomePlaceholder, { opacity: 1, duration: 0.2 });
