@@ -143,10 +143,10 @@ body {
       border-radius: 0.375rem;
       background-color: transparent;
       pointer-events: none;
-      width: 140px; /* Approximate width of date/time */
+      width: 150px; /* Approximate width of date/time */
       height: 24px; /* Approximate height */
       top: 0.8rem;
-      right: 0.7rem;
+      right: 0.8rem;
     }
 
     time {
