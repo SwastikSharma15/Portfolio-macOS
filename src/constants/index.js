@@ -722,7 +722,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-10 left-5",
-      imageUrl: "/images/swastik.jpg",
+      imageUrl: "/images/swastik_2.jpeg",
     },
     {
       id: 2,
@@ -731,7 +731,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "url",
       href: "https://www.linkedin.com/in/swastik15sharma/",
-      position: "top-60 left-25",
+      position: "top-60 left-50",
     },
     {
       id: 3,
@@ -740,7 +740,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "fig",
       href: "https://github.com/SwastikSharma15",
-      position: "top-60 right-25",
+      position: "top-60 left-95",
     },
     {
       id: 4,
@@ -784,6 +784,15 @@ const ABOUT_LOCATION = {
         "📱 Other / Supporting:",
         "Python, SQL, Machine Learning, React Native",
       ],
+    },
+    {
+      id: 6,
+      name: "me2.png",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-55 left-5",
+      imageUrl: "/images/swastik.jpg",
     },
   ],
 };

@@ -94,7 +94,16 @@ const WindowWrapper = (Component, windowKey) => {
           el.style.top = el.dataset.prevTop;
           el.style.left = el.dataset.prevLeft;
           el.style.width = el.dataset.prevWidth;
-          el.style.height = el.dataset.prevHeight;
+          
+          // For contact window, always reset height to auto to accommodate dynamic content
+          if (windowKey === 'contact') {
+            el.style.height = '';
+          } else if (el.dataset.prevHeight !== 'auto') {
+            el.style.height = el.dataset.prevHeight;
+          } else {
+            el.style.height = '';
+          }
+          
           // restore position and optional constraints
           if (el.dataset.prevPosition) el.style.position = el.dataset.prevPosition;
           if (el.dataset.prevMaxWidth) el.style.maxWidth = el.dataset.prevMaxWidth;

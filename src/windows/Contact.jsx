@@ -1,11 +1,15 @@
 import { WindowControls } from '#components'
 import { socials } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
+import useWindowStore from '#store/window'
 import { Mail } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import clsx from 'clsx'
 
 const Contact = () => {
+  const { windows } = useWindowStore()
+  const { isMaximized } = windows.contact || {}
   const email = 'swastik15.sharma.work@gmail.com'
   const [showModal, setShowModal] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -103,10 +107,13 @@ const Contact = () => {
       </div>
       <div className='p-5 space-y-5'>
         <img
-          src='/images/swastik.jpg'
+          src='/images/swastik_2.jpeg'
           alt='Swastik'
           loading='lazy'
-          className='w-20 rounded-xl'
+          className={clsx(
+            'object-cover object-center object-top rounded-xl',
+            isMaximized ? 'w-60 h-40' : 'w-30 h-20'
+          )}
         />
         <h3>
           Let's Connect
