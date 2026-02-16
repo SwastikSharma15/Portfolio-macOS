@@ -15,7 +15,7 @@ const Image = lazy(() => import('./windows/Image.jsx'))
 const Contact = lazy(() => import('./windows/Contact.jsx'))
 const Photos = lazy(() => import('./windows/Photos.jsx'))
 const Music = lazy(() => import('./windows/Music.jsx'))
-const Ner = lazy(() => import('./windows/Ner.jsx'))
+const Game = lazy(() => import('./windows/Game.jsx'))
 const Trash = lazy(() => import('./windows/Trash.jsx'))
 const VSCode = lazy(() => import('./windows/VSCode.jsx'))
 
@@ -46,7 +46,7 @@ const App = () => {
       import('./windows/Contact.jsx');
       import('./windows/Photos.jsx');
       import('./windows/Music.jsx');
-      import('./windows/Ner.jsx');
+      import('./windows/Game.jsx');
       import('./windows/Trash.jsx');
       import('./windows/VSCode.jsx');
     };
@@ -74,7 +74,7 @@ const App = () => {
             <Suspense fallback={null}><Contact /></Suspense>
             <Suspense fallback={null}><Photos /></Suspense>
             <Suspense fallback={null}><Music /></Suspense>
-            <Suspense fallback={null}><Ner /></Suspense>
+            <Suspense fallback={null}><Game /></Suspense>
             <Suspense fallback={null}><VSCode /></Suspense>
             <Suspense fallback={null}><Trash /></Suspense>
           </>
