@@ -606,7 +606,7 @@ body {
   }
 
   #game {
-    @apply w-5xl h-[600px] absolute top-20 left-20 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden flex flex-col;
+    @apply w-[1150px] h-[650px] absolute top-10 left-50 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden flex flex-col;
 
     #window-header {
       @apply flex items-center justify-between bg-gray-50 border-b border-gray-200 select-none text-sm text-gray-400;

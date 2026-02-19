@@ -162,7 +162,7 @@ const Game = () => {
           )}
 
           {/* Sidebar */}
-          <div className="sidebar w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3 flex-shrink-0">
+          <div className="sidebar w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3 shrink-0">
             <div>
               <h3 className="text-xs font-medium text-gray-400 mb-2 flex items-center gap-2">
                 <Gamepad2 className="w-3 h-3" /> Games
@@ -226,7 +226,7 @@ const Game = () => {
         </div>
       ) : (
         // Game View - takes full space
-        <div className={`relative flex-1 w-full overflow-hidden bg-white ${isMaximized ? 'h-full' : 'h-[560px]'}`}>
+        <div className={`relative flex-1 w-full overflow-hidden bg-white ${isMaximized ? 'h-full' : 'h-152'}`}>
           {!isFocused && (
             <button
               type="button"
