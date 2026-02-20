@@ -74,7 +74,7 @@ const Music = () => {
         <h2 className='flex-1 text-center font-bold'>Music</h2>
       </div>
       <div className='flex w-full flex-1 min-h-0'>
-        <div className='sidebar'>
+        <div className='sidebar pr-0'>
           <h2>Playlist</h2>
           <ul>
             {songs.map((song, idx) => (
