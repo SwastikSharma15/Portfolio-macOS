@@ -212,7 +212,7 @@ const photosLinks = [
 const gallery = [
   {
     id: 1,
-    img: "/images/gal2.jpg",
+    img: "/images/gal2.webp",
   },
   {
     id: 2,
@@ -220,7 +220,7 @@ const gallery = [
   },
   {
     id: 3,
-    img: "/images/gal5.png",
+    img: "/images/gal5.webp",
   },
   {
     id: 4,
@@ -228,19 +228,19 @@ const gallery = [
   },
   {
     id: 5,
-    img: "/images/gal1.png",
+    img: "/images/gal1.webp",
   },
   {
     id: 6,
-    img: "/images/gal6.png",
+    img: "/images/gal6.webp",
   },
   {
     id: 7,
-    img: "/images/wallpaper.png",
+    img: "/images/wallpaper.webp",
   },
   {
     id: 8,
-    img: "/images/gal7.jpg",
+    img: "/images/gal7.webp",
   },
   {
     id: 9,
@@ -248,7 +248,7 @@ const gallery = [
   },
   {
     id: 10,
-    img: "/images/gal15.jpg",
+    img: "/images/gal15.webp",
   },
   {
     id: 11,
@@ -268,7 +268,7 @@ const gallery = [
   },
   {
     id: 15,
-    img: "/images/gal14.jpg",
+    img: "/images/gal14.webp",
   },
   {
     id: 16,
@@ -276,7 +276,7 @@ const gallery = [
   },
   {
     id: 17,
-    img: "/images/gal16.jpg",
+    img: "/images/gal16.webp",
   }
 ];
 
@@ -709,7 +709,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "img",
           position: "top-15 right-30",
-          imageUrl: "/images/mojito.png",
+          imageUrl: "/images/mojito.webp",
         },
         {
           id: 5,
@@ -820,7 +820,7 @@ const ABOUT_LOCATION = {
       fileType: "txt",
       position: "top-18 left-50",
       subtitle: "Meet the Developer Behind the Code",
-      image: "/images/swastik.jpg",
+      image: "/images/swastik.webp",
       description: [
         "I’m Swastik, a frontend developer based in India, focused on building fast, responsive, and visually sharp web interfaces. I work mainly with React, JavaScript, and modern tooling to craft smooth user experiences backed by clean, maintainable code.",
         "I care about performance, clarity, and UI polish whether it’s reducing load times, solving annoying UX problems, or animating micro-interactions with GSAP. If something feels slow or clunky, I fix it. Simple.",
@@ -862,7 +862,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-55 left-5",
-      imageUrl: "/images/swastik.jpg",
+      imageUrl: "/images/swastik.webp",
     },
   ],
 };
