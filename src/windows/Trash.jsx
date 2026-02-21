@@ -3,7 +3,7 @@ import { locations } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
 import useLocationStore from '#store/location'
 import React, { useEffect } from 'react'
-import { Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react/dist/esm/icons'
 
 const Trash = () => {
   const { setActiveLocation } = useLocationStore()

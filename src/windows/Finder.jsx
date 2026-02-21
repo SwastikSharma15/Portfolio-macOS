@@ -4,7 +4,7 @@ import WindowWrapper from "#hoc/WindowWrapper";
 import useLocationStore from "#store/location";
 import useWindowStore from "#store/window";
 import clsx from "clsx";
-import { Search } from "lucide-react";
+import { Search } from "lucide-react/dist/esm/icons";
 import React from "react";
 
 const Finder = () => {

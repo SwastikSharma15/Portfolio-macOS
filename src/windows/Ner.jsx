@@ -1,6 +1,6 @@
 import { WindowControls } from '#components'
 import WindowWrapper from '#hoc/WindowWrapper'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react/dist/esm/icons'
 import useWindowStore from '#store/window'
 import useAudioStore from '#store/audio'
 import { useEffect, useRef } from 'react'

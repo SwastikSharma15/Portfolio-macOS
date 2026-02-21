@@ -2,7 +2,7 @@ import { WindowControls } from '#components';
 import { gallery, photosLinks } from '#constants';
 import WindowWrapper from '#hoc/WindowWrapper';
 import useWindowStore from '#store/window';
-import { Mail, Search } from 'lucide-react';
+import { Mail, Search } from 'lucide-react/dist/esm/icons';
 const Photos = () => {
 
   const { openWindow, focusWindow } = useWindowStore();
