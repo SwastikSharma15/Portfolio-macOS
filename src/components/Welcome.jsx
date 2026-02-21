@@ -70,7 +70,7 @@ const setupTextHover = (container, type) => {
   }
 }
 
-const Welcome = () => {
+const Welcome = React.memo(() => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const welcomeContainerRef = useRef(null);
@@ -162,6 +162,8 @@ const Welcome = () => {
       <div className="welcome-placeholder" ref={welcomePlaceholderRef}></div>
     </>
   );
-};
+});
+
+Welcome.displayName = 'Welcome';
 
 export default Welcome;

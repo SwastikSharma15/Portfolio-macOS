@@ -436,7 +436,7 @@ body {
 
   #resume {
     /* Give the window a fixed height in non-maximized state so inner content can scroll */
-    @apply w-fit h-[600px] absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-fit h-[600px] absolute top-16 left-6/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     #window-header {
       h2 {

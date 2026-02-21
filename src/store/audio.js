@@ -1,6 +1,18 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
+// Throttle helper for timeupdate events
+const throttle = (fn, delay) => {
+  let lastCall = 0;
+  return (...args) => {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      fn(...args);
+    }
+  };
+};
+
 // A single, shared HTMLAudioElement + playback state for the whole app
 // Any component can subscribe and control playback; UI always reflects real audio state
 
@@ -32,7 +44,8 @@ const useAudioStore = create(immer((set, get) => ({
     // Event listeners to sync real audio state back into store
     const onPlay = () => set((s) => { s.isPlaying = true; s.ended = false; });
     const onPause = () => set((s) => { s.isPlaying = false; });
-    const onTime = () => set((s) => { s.currentTime = audio.currentTime || 0; });
+    // Throttle timeupdate to reduce re-renders (update every 250ms instead of ~4x per second)
+    const onTime = throttle(() => set((s) => { s.currentTime = audio.currentTime || 0; }), 250);
     const onLoaded = () => set((s) => { s.duration = audio.duration || 0; });
     const onEnded = () => set((s) => { s.isPlaying = false; s.ended = true; });
 
