@@ -1,12 +1,19 @@
 import { WindowControls } from "#components";
 import WindowWrapper from "#hoc/WindowWrapper";
-import { Download, ExternalLink } from "lucide-react";
-import React, { useState } from "react";
+import { Download, ExternalLink } from "lucide-react/dist/esm/icons";
+import React, { useState, lazy, Suspense } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+const LazyDocument = lazy(() =>
+  import("react-pdf").then(m => ({ default: m.Document }))
+);
+
+const LazyPage = lazy(() =>
+  import("react-pdf").then(m => ({ default: m.Page }))
+);
 
 const Resume = () => {
   const [numPages, setNumPages] = useState(null);
@@ -40,21 +47,23 @@ const Resume = () => {
       {/* Scrollable content that grows to fill space (works when maximized) */}
       <div className="flex-1 overflow-y-auto bg-gray-100 px-4">
         <div className="flex justify-center py-4">
-          <Document
-            file="files/Swastik_Sharma_Frontend_Developer_Resume.pdf"
-            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-          >
-            {Array.from(new Array(numPages), (_, index) => (
-              <Page
-                key={index}
-                pageNumber={index + 1}
-                scale={1}
-                renderTextLayer={false}
-                renderAnnotationLayer={false}
-                className="mb-6 shadow-md"
-              />
-            ))}
-          </Document>
+          <Suspense fallback={<div>Loading PDF...</div>}>
+            <Document
+              file="files/Swastik_Sharma_Frontend_Developer_Resume.pdf"
+              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+            >
+              {Array.from(new Array(numPages), (_, index) => (
+                <Page
+                  key={index}
+                  pageNumber={index + 1}
+                  scale={1}
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  className="mb-6 shadow-md"
+                />
+              ))}
+            </Document>
+          </Suspense>
         </div>
       </div>
     </div>
