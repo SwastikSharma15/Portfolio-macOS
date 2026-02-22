@@ -6,9 +6,10 @@ import Draggable from 'gsap/Draggable';
 
 const WindowWrapper = (Component, windowKey) => {
 
-  const Wrapped = (props) => {
-    const { focusWindow, windows } = useWindowStore();
-    const { isOpen, isMaximized, zIndex } = windows[windowKey];
+  const Wrapped = React.memo((props) => {
+    const focusWindow = useWindowStore(state => state.focusWindow);
+    const windowState = useWindowStore(state => state.windows[windowKey]);
+    const { isOpen, isMaximized, zIndex } = windowState || {};
     const ref = useRef(null);
 
     // open animation
@@ -145,7 +146,7 @@ const WindowWrapper = (Component, windowKey) => {
           <Component {...props} />
       </section>
     )
-  }
+  });
 
   Wrapped.displayName = `WindowWrapper(
     ${Component.displayName || Component.name || "Component"})`;

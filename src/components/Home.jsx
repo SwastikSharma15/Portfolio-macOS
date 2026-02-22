@@ -4,18 +4,19 @@ import useWindowStore from "#store/window";
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import { Draggable } from "gsap/Draggable";
+import React, { useCallback } from "react";
 
 const projects = locations.work?.children ?? [];
 
-const Home = () => {
+const Home = React.memo(() => {
 
-  const { setActiveLocation } = useLocationStore();
-  const { openWindow } = useWindowStore();
+  const setActiveLocation = useLocationStore(state => state.setActiveLocation);
+  const openWindow = useWindowStore(state => state.openWindow);
 
-  const handleOpenProjectFinder = (project) => {
+  const handleOpenProjectFinder = useCallback((project) => {
     setActiveLocation(project);
     openWindow("finder");
-  };
+  }, [setActiveLocation, openWindow]);
 
   useGSAP(() => {
     Draggable.create('.folder')
@@ -43,6 +44,8 @@ const Home = () => {
       </ul>
     </section>
   )
-}
+});
+
+Home.displayName = 'Home';
 
 export default Home

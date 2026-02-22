@@ -1,15 +1,18 @@
 import { dockApps, locations } from '#constants';
-import React, { useRef } from 'react'
+import React, { useRef, useCallback } from 'react'
 import { Tooltip } from 'react-tooltip';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import useWindowStore from '#store/window';
 import useLocationStore from '#store/location';
 
-const Dock = () => {
+const Dock = React.memo(() => {
 
-  const { openWindow, closeWindow, windows} = useWindowStore();
-  const { setActiveLocation } = useLocationStore();
+  // Optimized selectors - only subscribe to what we need
+  const openWindow = useWindowStore(state => state.openWindow);
+  const closeWindow = useWindowStore(state => state.closeWindow);
+  const windows = useWindowStore(state => state.windows);
+  const setActiveLocation = useLocationStore(state => state.setActiveLocation);
 
   const dockRef = useRef(null);
 
@@ -60,7 +63,7 @@ const Dock = () => {
     };
   }, []);
 
-  const toggleApp = (app) => {
+  const toggleApp = useCallback((app) => {
     if (!app.canOpen) return;
 
     // Special case: Trash icon should open Finder focused on Trash
@@ -90,7 +93,8 @@ const Dock = () => {
     } else {
       openWindow(app.id);
     }
-  }
+  }, [openWindow, closeWindow, windows, setActiveLocation]);
+
   return (
     <section id='dock'>
       <div ref={dockRef} className='dock-container'>
@@ -119,6 +123,8 @@ const Dock = () => {
       </div>
     </section>
   )
-}
+});
+
+Dock.displayName = 'Dock';
 
 export default Dock

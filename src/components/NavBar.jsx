@@ -2,14 +2,15 @@ import dayjs from 'dayjs'
 import { navIcons, navLinks, locations } from "#constants";
 import useWindowStore from '#store/window';
 import useLocationStore from '#store/location';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
+import React from "react";
 
-const NavBar = () => {
+const NavBar = React.memo(() => {
 
-  const { openWindow } = useWindowStore();
-  const { setActiveLocation } = useLocationStore();
+  const openWindow = useWindowStore(state => state.openWindow);
+  const setActiveLocation = useLocationStore(state => state.setActiveLocation);
 
   const wrapperRef = useRef(null);
   const gifRef = useRef(null);
@@ -149,7 +150,7 @@ const NavBar = () => {
     };
   }, []);
   
-  const handleNavLinkClick = (type) => {
+  const handleNavLinkClick = useCallback((type) => {
     if (!type) return;
 
     // Ensure Finder opens at Work instead of Trash by default
@@ -158,9 +159,9 @@ const NavBar = () => {
     }
 
     openWindow(type);
-  };
+  }, [openWindow, setActiveLocation]);
 
-  const handleIconClick = ({ type, action }) => {
+  const handleIconClick = useCallback(({ type, action }) => {
     if (!type) return;
     
     openWindow(type);
@@ -169,7 +170,7 @@ const NavBar = () => {
     if (action === 'about') {
       setActiveLocation(locations.about);
     }
-  }
+  }, [openWindow, setActiveLocation]);
 
   return (
     <nav>
@@ -221,6 +222,8 @@ const NavBar = () => {
       </div>
     </nav>
   );
-};
+});
+
+NavBar.displayName = 'NavBar';
 
 export default NavBar;
