@@ -4,7 +4,7 @@ import WindowWrapper from '#hoc/WindowWrapper'
 import useWindowStore from '#store/window'
 import useAudioStore from '#store/audio'
 import React, { useEffect } from 'react'
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react'
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react/dist/esm/icons'
 
 const formatTime = (s) => {
   if (!s || Number.isNaN(s)) return '0:00'
@@ -14,8 +14,7 @@ const formatTime = (s) => {
 }
 
 const Music = () => {
-  const { windows } = useWindowStore();
-  const isOpen = windows.music?.isOpen;
+  const isOpen = useWindowStore(state => state.windows.music?.isOpen);
 
   const {
     init,

@@ -2,14 +2,13 @@ import { WindowControls } from '#components'
 import { socials } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
 import useWindowStore from '#store/window'
-import { Mail } from 'lucide-react'
+import { Mail } from 'lucide-react/dist/esm/icons'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import clsx from 'clsx'
 
 const Contact = () => {
-  const { windows } = useWindowStore()
-  const { isMaximized } = windows.contact || {}
+  const isMaximized = useWindowStore(state => state.windows.contact?.isMaximized);
   const email = 'swastik15.sharma.work@gmail.com'
   const [showModal, setShowModal] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)

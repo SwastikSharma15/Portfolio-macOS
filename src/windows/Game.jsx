@@ -1,6 +1,6 @@
 import { WindowControls } from '#components'
 import WindowWrapper from '#hoc/WindowWrapper'
-import { ExternalLink, ArrowLeft, Gamepad2 } from 'lucide-react'
+import { ExternalLink, ArrowLeft, Gamepad2 } from 'lucide-react/dist/esm/icons'
 import useWindowStore from '#store/window'
 import useAudioStore from '#store/audio'
 import { useEffect, useRef, useState } from 'react'
@@ -32,8 +32,9 @@ const categories = [
 ]
 
 const Game = () => {
-  const { focusWindow, windows } = useWindowStore();
-  const { pause } = useAudioStore();
+  const focusWindow = useWindowStore(state => state.focusWindow);
+  const windows = useWindowStore(state => state.windows);
+  const pause = useAudioStore(state => state.pause);
   const iframeRef = useRef(null);
   const [selectedGame, setSelectedGame] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');

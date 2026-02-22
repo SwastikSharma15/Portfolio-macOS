@@ -1,7 +1,7 @@
 import { WindowControls } from '#components'
 import { blogPosts } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
-import { ChevronLeft, ChevronRight, Copy, MoveRight, PanelLeft, Plus, SearchIcon, Share, ShieldHalf } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Copy, MoveRight, PanelLeft, Plus, Search, Share, ShieldHalf } from 'lucide-react/dist/esm/icons'
 import React from 'react'
 
 const Safari = () => {
@@ -17,7 +17,7 @@ const Safari = () => {
         <div className='flex-1 flex-center gap-3'>
           <ShieldHalf className='icon' />
           <div className='search'>
-            <SearchIcon className='icon' />
+            <Search className='icon' />
             <input 
               type='text' 
               placeholder='Search or enter website name'
