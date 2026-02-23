@@ -54,49 +54,49 @@ const dockApps = [
   {
     id: "safari",
     name: "Articles", // was "Safari"
-    icon: "safari.png",
+    icon: "safari.webp",
     canOpen: true,
   },
   {
     id: "photos",
     name: "Gallery", // was "Photos"
-    icon: "photos.png",
+    icon: "photos.webp",
     canOpen: true,
   },
   {
     id: "contact",
     name: "Contact", // or "Get in touch"
-    icon: "contact.png",
+    icon: "contact.webp",
     canOpen: true,
   },
   {
     id: "terminal",
     name: "Skills", // was "Terminal"
-    icon: "terminal.png",
+    icon: "terminal.webp",
     canOpen: true,
   },
   {
     id: "vscode",
     name: "VS Code",
-    icon: "code2.png",
+    icon: "code2.webp",
     canOpen: true,
   },
   {
     id: "music",
     name: "Music", // was "Trash"
-    icon: "music.png",
+    icon: "music.webp",
     canOpen: true,
   },
   {
     id: "game",
     name: "Games",
-    icon: "game.png",
+    icon: "game.webp",
     canOpen: true,
   },
   {
     id: "trash", // unique id to avoid duplicate keys in Dock
     name: "Trash",
-    icon: "trash.png",
+    icon: "trash.webp",
     canOpen: true,
     action: "trash",
   },
@@ -462,7 +462,7 @@ const WORK_LOCATION = {
     {
       id: 5,
       name: "Cyberpunk",
-      icon: "/images/folder.png",
+      icon: "/images/folder.webp",
       kind: "folder",
       position: "top-45 right-80 ",
       windowPosition: "top-[10vh] left-15", // optional: Finder window position
@@ -484,7 +484,7 @@ const WORK_LOCATION = {
         {
           id: 2,
           name: "CyberpunkEdgerunners.com",
-          icon: "/images/safari.png",
+          icon: "/images/safari.webp",
           kind: "file",
           fileType: "url",
           href: "https://lucycyberpunk.vercel.app/",
@@ -515,7 +515,7 @@ const WORK_LOCATION = {
     {
       id: 6,
       name: "ShopKar",
-      icon: "/images/folder.png",
+      icon: "/images/folder.webp",
       kind: "folder",
       position: "top-10 left-0", // icon position inside Finder
       windowPosition: "top-[25vh] left-30",
@@ -537,7 +537,7 @@ const WORK_LOCATION = {
         {
           id: 2,
           name: "ShopKar.com",
-          icon: "/images/safari.png",
+          icon: "/images/safari.webp",
           kind: "file",
           fileType: "url",
           href: "https://shopkar-react.vercel.app/",
@@ -568,7 +568,7 @@ const WORK_LOCATION = {
     {
       id: 7,
       name: "Tidy Tasks",
-      icon: "/images/folder.png",
+      icon: "/images/folder.webp",
       kind: "folder",
       position: "top-10 left-50",
       windowPosition: "top-[40vh] left-15",
@@ -590,7 +590,7 @@ const WORK_LOCATION = {
         {
           id: 2,
           name: "TidyTasks.com",
-          icon: "/images/safari.png",
+          icon: "/images/safari.webp",
           kind: "file",
           fileType: "url",
           href: "https://tidytasks.vercel.app/",
@@ -621,7 +621,7 @@ const WORK_LOCATION = {
     {
       id: 8,
       name: "Movie Plex",
-      icon: "/images/folder.png",
+      icon: "/images/folder.webp",
       kind: "folder",
       position: "top-80 right-55",
       windowPosition: "top-[55vh] left-30",
@@ -643,7 +643,7 @@ const WORK_LOCATION = {
         {
           id: 2,
           name: "MoviePlex.com",
-          icon: "/images/safari.png",
+          icon: "/images/safari.webp",
           kind: "file",
           fileType: "url",
           href: "https://movieplexapp.vercel.app/",
@@ -674,7 +674,7 @@ const WORK_LOCATION = {
     {
       id: 9,
       name: "Mojito Mix",
-      icon: "/images/folder.png",
+      icon: "/images/folder.webp",
       kind: "folder",
       position: "top-80 right-5",
       windowPosition: "top-[70vh] left-15",
@@ -696,7 +696,7 @@ const WORK_LOCATION = {
         {
           id: 2,
           name: "MojitoMix.com",
-          icon: "/images/safari.png",
+          icon: "/images/safari.webp",
           kind: "file",
           fileType: "url",
           href: "https://mojitomix.vercel.app",
@@ -727,7 +727,7 @@ const WORK_LOCATION = {
     {
       id: 10,
       name: "VS Code Web IDE",
-      icon: "/images/folder.png",
+      icon: "/images/folder.webp",
       kind: "folder",
       position: "top-45 right-30",
       windowPosition: "top-[40vh] left-40",
@@ -749,7 +749,7 @@ const WORK_LOCATION = {
         {
           id: 2,
           name: "VSCode.com",
-          icon: "/images/safari.png",
+          icon: "/images/safari.webp",
           kind: "file",
           fileType: "url",
           href: "https://vs-code-web-ide.vercel.app/",
@@ -797,7 +797,7 @@ const ABOUT_LOCATION = {
     {
       id: 2,
       name: "Swastik.linkedin",
-      icon: "/images/safari.png",
+      icon: "/images/safari.webp",
       kind: "file",
       fileType: "url",
       href: "https://www.linkedin.com/in/swastik15sharma/",
@@ -932,7 +932,7 @@ const TRASH_LOCATION = {
     {
       id: 5,
       name: "Old Portfolio.com",
-      icon: "/images/safari.png",
+      icon: "/images/safari.webp",
       kind: "file",
       fileType: "url",
       href: "https://swastiksharma15.github.io/Portfolio/",

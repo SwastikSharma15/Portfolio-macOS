@@ -212,22 +212,17 @@ body {
       }
 
       /* Resize music icon */
-      img[src*="music.png"] {
+      img[src*="music.webp"] {
         @apply scale-93;
       }
 
       /* Resize trash icon */
-      img[src*="trash.png"] {
+      img[src*="trash.webp"] {
         @apply scale-92;
       }
 
-      /* Resize code icon */
-      img[src*="code.png"] {
-        @apply scale-105;
-      }
-
       /* Resize NER icon - increase by 1px equivalent */
-      img[src*="game.png"] {
+      img[src*="game.webp"] {
         @apply scale-105;
       }
     }
@@ -436,7 +431,7 @@ body {
 
   #resume {
     /* Give the window a fixed height in non-maximized state so inner content can scroll */
-    @apply w-fit h-[600px] absolute top-16 left-6/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[650px] h-[600px] absolute top-16 left-6/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     #window-header {
       h2 {

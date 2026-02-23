@@ -1,25 +1,12 @@
 import { WindowControls } from "#components";
 import WindowWrapper from "#hoc/WindowWrapper";
 import { Download, ExternalLink } from "lucide-react/dist/esm/icons";
-import React, { useState, lazy, Suspense } from "react";
-import { pdfjs, Document, Page } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-const LazyDocument = lazy(() =>
-  import("react-pdf").then(m => ({ default: m.Document }))
-);
-
-const LazyPage = lazy(() =>
-  import("react-pdf").then(m => ({ default: m.Page }))
-);
+import React from "react";
 
 const Resume = () => {
-  const [numPages, setNumPages] = useState(null);
+  const resumePath = "files/Swastik_Sharma_Frontend_Developer_Resume.pdf";
 
   return (
-    // Make the window content fill available height and center the PDF
     <div className="flex flex-col h-full">
       {/* Header */}
       <div id="window-header">
@@ -27,44 +14,32 @@ const Resume = () => {
         <h2>Swastik_Sharma_Frontend_Developer_Resume.pdf</h2>
         
         <a
-          href="files/Swastik_Sharma_Frontend_Developer_Resume.pdf"
+          href={resumePath}
           target="_blank"
           rel="noopener noreferrer"
           title="Open Resume in New Tab"
+          onClick={(e) => e.stopPropagation()}
         >
-        <ExternalLink className="icon mr-3" />
+          <ExternalLink className="icon mr-3" />
         </a>
 
         <a
-          href="files/Swastik_Sharma_Frontend_Developer_Resume.pdf"
-          download
+          href={resumePath}
+          download="Swastik_Sharma_Resume.pdf"
           title="Download Resume"
+          onClick={(e) => e.stopPropagation()}
         >
           <Download className="icon" />
         </a>
       </div>
 
-      {/* Scrollable content that grows to fill space (works when maximized) */}
-      <div className="flex-1 overflow-y-auto bg-gray-100 px-4">
-        <div className="flex justify-center py-4">
-          <Suspense fallback={<div>Loading PDF...</div>}>
-            <Document
-              file="files/Swastik_Sharma_Frontend_Developer_Resume.pdf"
-              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-            >
-              {Array.from(new Array(numPages), (_, index) => (
-                <Page
-                  key={index}
-                  pageNumber={index + 1}
-                  scale={1}
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-                  className="mb-6 shadow-md"
-                />
-              ))}
-            </Document>
-          </Suspense>
-        </div>
+      {/* PDF iframe - simple and works everywhere */}
+      <div className="flex-1 overflow-hidden bg-gray-100">
+        <iframe
+          src={resumePath}
+          title="Resume PDF"
+          className="w-full h-full border-none"
+        />
       </div>
     </div>
   );

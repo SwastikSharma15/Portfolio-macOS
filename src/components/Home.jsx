@@ -34,7 +34,7 @@ const Home = React.memo(() => {
             onClick={() => handleOpenProjectFinder(project)}
           >
             <img 
-              src="/images/folder.png"
+              src="/images/folder.webp"
               alt={project.name}
               loading='lazy'
             />

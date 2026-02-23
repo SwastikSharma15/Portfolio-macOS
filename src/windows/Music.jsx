@@ -91,7 +91,7 @@ const Music = () => {
         </div>
         <div className='player'>
           <div className='cover'>
-            <img src={current?.cover || '/images/music.png'} alt={current?.title || 'Cover'} loading='lazy' />
+            <img src={current?.cover || '/images/music.webp'} alt={current?.title || 'Cover'} loading='lazy' />
           </div>
           <div className='mt-6 text-center'>
             <h3 className='text-3xl font-bold'>{current?.title || 'Unknown'}</h3>
