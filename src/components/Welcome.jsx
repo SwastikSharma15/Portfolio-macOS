@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { Draggable } from "gsap/Draggable";
+import React, { useRef, useEffect } from "react";
+
+const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
 
 const FONT_WEIGHTS = {
   subtitle: { min: 100, max:400, default: 100},
@@ -31,8 +30,8 @@ const renderText = (text, className, baseWeight = 400) => {
   ));
 };
 
-const setupTextHover = (container, type) => {
-  if (!container) return () => {};
+const setupTextHover = (container, type, gsap) => {
+  if (!container || !gsap) return () => {};
 
   const letters = container.querySelectorAll("span");
 
@@ -76,63 +75,64 @@ const Welcome = React.memo(() => {
   const welcomeContainerRef = useRef(null);
   const welcomePlaceholderRef = useRef(null);
 
-  useGSAP(() => {
-    const titleCleanup = setupTextHover(titleRef.current, 'title');
-    const subtitleCleanup = setupTextHover(subtitleRef.current, 'subtitle');
+  useEffect(() => {
+    // Skip text hover effects on mobile for better performance
+    if (isMobile) return () => {};
+    
+    // Dynamically import GSAP only on desktop
+    Promise.all([
+      import('gsap'),
+      import('gsap/Draggable')
+    ]).then(([{ gsap }, { Draggable }]) => {
+      const titleCleanup = setupTextHover(titleRef.current, 'title', gsap);
+      const subtitleCleanup = setupTextHover(subtitleRef.current, 'subtitle', gsap);
 
-    // Implement drag functionality with screen-wide snap threshold (desktop only)
-    const welcomeContainer = welcomeContainerRef.current;
-    const welcomePlaceholder = welcomePlaceholderRef.current;
+      // Implement drag functionality with screen-wide snap threshold (desktop only)
+      const welcomeContainer = welcomeContainerRef.current;
+      const welcomePlaceholder = welcomePlaceholderRef.current;
 
-    if (welcomeContainer && welcomePlaceholder && window.innerWidth > 640) {
-      // Hide placeholder initially
-      gsap.set(welcomePlaceholder, { opacity: 0 });
+      if (welcomeContainer && welcomePlaceholder) {
+        // Hide placeholder initially
+        gsap.set(welcomePlaceholder, { opacity: 0 });
 
-      // Get screen dimensions for snap threshold
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-      const snapThreshold = Math.max(screenWidth, screenHeight); // Entire screen
+        // Get screen dimensions for snap threshold
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const snapThreshold = Math.max(screenWidth, screenHeight); // Entire screen
 
-      Draggable.create(welcomeContainer, {
-        type: "x,y",
-        bounds: "body",
-        cursor: "grab",
-        activeCursor: "grabbing",
-        zIndexBoost: false, // Prevent z-index from increasing on drag
-        onDragStart: function () {
-          // Show dotted placeholder
-          gsap.to(welcomePlaceholder, { opacity: 1, duration: 0.2 });
-        },
-        onDrag: function () {
-          const isWithinSnapZone = 
-            Math.abs(this.x) < snapThreshold && 
-            Math.abs(this.y) < snapThreshold;
-        },
-        onDragEnd: function () {
-          const isWithinSnapZone = 
-            Math.abs(this.x) < snapThreshold && 
-            Math.abs(this.y) < snapThreshold;
+        Draggable.create(welcomeContainer, {
+          type: "x,y",
+          bounds: "body",
+          cursor: "grab",
+          activeCursor: "grabbing",
+          zIndexBoost: false,
+          onDragStart: function () {
+            gsap.to(welcomePlaceholder, { opacity: 1, duration: 0.2 });
+          },
+          onDragEnd: function () {
+            const isWithinSnapZone = 
+              Math.abs(this.x) < snapThreshold && 
+              Math.abs(this.y) < snapThreshold;
 
-          if (isWithinSnapZone) {
-            // Snap back to original position
-            gsap.to(this.target, {
-              x: 0,
-              y: 0,
-              duration: 0.3,
-              ease: "power2.out",
-            });
+            if (isWithinSnapZone) {
+              gsap.to(this.target, {
+                x: 0,
+                y: 0,
+                duration: 0.3,
+                ease: "power2.out",
+              });
+            }
+            
+            gsap.to(welcomePlaceholder, { opacity: 0, duration: 0.2 });
           }
-          
-          // Hide placeholder
-          gsap.to(welcomePlaceholder, { opacity: 0, duration: 0.2 });
-        }
-      });
-    }
+        });
+      }
 
-    return () => {
-      subtitleCleanup();
-      titleCleanup();
-    }
+      return () => {
+        subtitleCleanup();
+        titleCleanup();
+      }
+    });
   }, [])
 
   return (
@@ -159,7 +159,7 @@ const Welcome = React.memo(() => {
       </section>
       
       {/* Placeholder for welcome text */}
-      <div className="welcome-placeholder" ref={welcomePlaceholderRef}></div>
+      {!isMobile && <div className="welcome-placeholder" ref={welcomePlaceholderRef}></div>}
     </>
   );
 });

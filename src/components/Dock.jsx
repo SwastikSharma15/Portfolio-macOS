@@ -1,10 +1,10 @@
 import { dockApps, locations } from '#constants';
-import React, { useRef, useCallback } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 import { Tooltip } from 'react-tooltip';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import useWindowStore from '#store/window';
 import useLocationStore from '#store/location';
+
+const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
 
 const Dock = React.memo(() => {
 
@@ -16,51 +16,55 @@ const Dock = React.memo(() => {
 
   const dockRef = useRef(null);
 
-  useGSAP(() => {
+  useEffect(() => {
     const dock  = dockRef.current;
     if (!dock) return () => {};
     
-    const icons =  dock.querySelectorAll('.dock-icon');
+    // Skip hover animations on mobile for better performance
+    if (isMobile) return () => {};
+    
+    // Dynamically import GSAP only on desktop
+    Promise.all([
+      import('gsap'),
+      import('@gsap/react')
+    ]).then(([{ gsap }]) => {
+      const icons =  dock.querySelectorAll('.dock-icon');
 
-    const animateIcons = (mouseX) => {
-      const {left} = dock.getBoundingClientRect();
+      const animateIcons = (mouseX) => {
+        const {left} = dock.getBoundingClientRect();
 
-      icons.forEach((icon) => {
-        const { left: iconLeft , width} = icon.getBoundingClientRect();
-        const center = iconLeft - left + width / 2;
-        const distance = Math.abs(mouseX - center)
+        icons.forEach((icon) => {
+          const { left: iconLeft , width} = icon.getBoundingClientRect();
+          const center = iconLeft - left + width / 2;
+          const distance = Math.abs(mouseX - center)
 
-        const intensity = Math.exp(-(distance ** 2.5)/ 30000);
+          const intensity = Math.exp(-(distance ** 2.5)/ 30000);
 
-        gsap.to(icon, {
-          scale: 1 + 0.25 * intensity,
-          y: -15 * intensity,
-          duration: 0.2,
-          ease: 'power1.out'
+          gsap.to(icon, {
+            scale: 1 + 0.25 * intensity,
+            y: -15 * intensity,
+            duration: 0.2,
+            ease: 'power1.out'
+          })
         })
-      })
-    }
+      }
 
-    const handleMouseMove = (e) => {
-      const {left } = dock.getBoundingClientRect();
+      const handleMouseMove = (e) => {
+        const {left } = dock.getBoundingClientRect();
 
-      animateIcons(e.clientX - left);
-    }
+        animateIcons(e.clientX - left);
+      }
 
-    const resetIcons = () => icons.forEach((icon) => gsap.to(icon, {
-      scale: 1,
-      y: 0,
-      duration: 0.3,
-      ease: 'power1.out'
-    }))
+      const resetIcons = () => icons.forEach((icon) => gsap.to(icon, {
+        scale: 1,
+        y: 0,
+        duration: 0.3,
+        ease: 'power1.out'
+      }))
 
-    dock.addEventListener('mousemove', handleMouseMove);
-    dock.addEventListener('mouseleave', resetIcons);
-
-    return () => {
-      dock.removeEventListener('mousemove', handleMouseMove);
-      dock.removeEventListener('mouseleave', resetIcons);
-    };
+      dock.addEventListener('mousemove', handleMouseMove);
+      dock.addEventListener('mouseleave', resetIcons);
+    });
   }, []);
 
   const toggleApp = useCallback((app) => {

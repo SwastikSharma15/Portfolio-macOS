@@ -44,8 +44,18 @@
     <meta name="twitter:creator" content="@swastiksharma" />
     <meta name="twitter:site" content="@swastiksharma" />
 
-    <!-- Preload critical fonts -->
-    <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&display=swap" crossorigin />
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Preload critical fonts with display=swap for better performance -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" media="print" onload="this.media='all'" />
+    
+    <!-- Fallback for no-JS -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" />
+    </noscript>
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">

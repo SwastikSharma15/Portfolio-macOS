@@ -19,6 +19,9 @@ const Home = React.memo(() => {
   }, [setActiveLocation, openWindow]);
 
   useGSAP(() => {
+    // Skip GSAP animations on mobile for better performance
+    if (window.innerWidth <= 640) return;
+    
     Draggable.create('.folder')
   }, []);
 

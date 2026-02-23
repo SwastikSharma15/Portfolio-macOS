@@ -29,5 +29,18 @@ export default defineConfig({
       '#hoc': resolve(dirname(fileURLToPath(import.meta.url)), 'src/hoc'),
       '#windows': resolve(dirname(fileURLToPath(import.meta.url)), 'src/windows'),
     }
-  }
+  },
+  build: {
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-gsap': ['gsap'],
+          'vendor-zustand': ['zustand'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 })

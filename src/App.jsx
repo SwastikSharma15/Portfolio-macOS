@@ -1,10 +1,14 @@
-import gsap from 'gsap'
-import { Draggable } from 'gsap/Draggable'
 import React, { Suspense, lazy, useEffect, useState } from 'react'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/react'
-import { NavBar, Welcome, Dock, Home } from '#components';
 import useWindowStore from '#store/window'
+
+// Detect mobile once
+const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
+
+// Lazy load components
+const NavBar = lazy(() => import('./components/NavBar.jsx'))
+const Welcome = lazy(() => import('./components/Welcome.jsx'))
+const Dock = lazy(() => import('./components/Dock.jsx'))
+const Home = lazy(() => import('./components/Home.jsx'))
 
 const Finder = lazy(() => import('./windows/Finder.jsx'))
 const Resume = lazy(() => import('./windows/Resume.jsx'))
@@ -19,14 +23,26 @@ const Game = lazy(() => import('./windows/Game.jsx'))
 const Trash = lazy(() => import('./windows/Trash.jsx'))
 const VSCode = lazy(() => import('./windows/VSCode.jsx'))
 
-gsap.registerPlugin(Draggable);
+// Lazy load analytics only on desktop
+const Analytics = !isMobile ? lazy(() => import('@vercel/analytics/react').then(m => ({ default: m.Analytics }))) : null;
+const SpeedInsights = !isMobile ? lazy(() => import('@vercel/speed-insights/react').then(m => ({ default: m.SpeedInsights }))) : null;
+
+// Only register GSAP plugins on desktop for better mobile performance
+if (!isMobile) {
+  import('gsap').then(({ gsap }) => {
+    import('gsap/Draggable').then(({ Draggable }) => {
+      gsap.registerPlugin(Draggable);
+    });
+  });
+}
 
 const App = () => {
   const { windows } = useWindowStore();
   const [eagerMount, setEagerMount] = useState(false);
+  
   useEffect(() => {
     const saved = localStorage.getItem('wallpaperUrl');
-    if (saved) {
+    if (saved && !isMobile) { // Only apply custom wallpaper on desktop
       document.documentElement.style.setProperty(
         '--wallpaper-url', `url('${saved}')`
       );
@@ -34,6 +50,9 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    // Skip eager mounting on mobile to improve initial load
+    if (isMobile) return;
+    
     const start = () => {
       setEagerMount(true);
       // warm the import cache so subsequent mounts don't suspend
@@ -57,13 +76,16 @@ const App = () => {
       setTimeout(start, 100);
     }
   }, []);
+  
   return (
     <>
       <main>
-        <NavBar />
-        <Welcome />
-        <Dock />
-        {eagerMount ? (
+        <Suspense fallback={<div />}>
+          <NavBar />
+          <Welcome />
+          <Dock />
+        </Suspense>
+        {!isMobile && eagerMount ? (
           <>
             <Suspense fallback={null}><Terminal /></Suspense>
             <Suspense fallback={null}><Safari /></Suspense>
@@ -79,10 +101,15 @@ const App = () => {
             <Suspense fallback={null}><Trash /></Suspense>
           </>
         ) : null}
-        <Home />
+        {!isMobile && <Suspense fallback={null}><Home /></Suspense>}
       </main>
-      <Analytics />
-      <SpeedInsights />
+      {/* Defer analytics on mobile for better performance */}
+      {!isMobile && Analytics && SpeedInsights && (
+        <Suspense fallback={null}>
+          <Analytics />
+          <SpeedInsights />
+        </Suspense>
+      )}
     </>
   )
 }
