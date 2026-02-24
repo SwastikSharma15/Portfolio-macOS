@@ -38,11 +38,11 @@ const Dock = React.memo(() => {
           const center = iconLeft - left + width / 2;
           const distance = Math.abs(mouseX - center)
 
-          const intensity = Math.exp(-(distance ** 2.5)/ 30000);
+          const intensity = Math.exp(-(distance ** 2.5)/ 150000);
 
           gsap.to(icon, {
             scale: 1 + 0.25 * intensity,
-            y: -15 * intensity,
+            y: -20 * intensity,
             duration: 0.2,
             ease: 'power1.out'
           })
