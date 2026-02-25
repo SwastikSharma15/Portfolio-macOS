@@ -4,7 +4,7 @@ import WindowWrapper from '#hoc/WindowWrapper'
 import useWindowStore from '#store/window'
 import useAudioStore from '#store/audio'
 import React, { useEffect } from 'react'
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react/dist/esm/icons'
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Shuffle, Repeat, Repeat1 } from 'lucide-react/dist/esm/icons'
 
 const formatTime = (s) => {
   if (!s || Number.isNaN(s)) return '0:00'
@@ -25,7 +25,6 @@ const Music = () => {
     duration,
     volume,
     muted,
-    play,
     pause,
     togglePlay,
     seek,
@@ -34,6 +33,10 @@ const Music = () => {
     next,
     prev,
     setIndex,
+    repeatMode,
+    toggleRepeatMode,
+    shuffle,
+    toggleShuffle,
   } = useAudioStore();
 
   // Initialize the shared audio controller once
@@ -48,6 +51,23 @@ const Music = () => {
       pause();
     }
   }, [isOpen, pause])
+
+  // Add spacebar support for play/pause
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyPress = (e) => {
+      // Only trigger if Music window is open and spacebar is pressed
+      if (e.code === 'Space' || e.key === ' ') {
+        // Prevent default scrolling behavior
+        e.preventDefault();
+        togglePlay();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [isOpen, togglePlay]);
 
   const seekHandler = (e) => {
     const val = Number(e.target.value);
@@ -65,6 +85,16 @@ const Music = () => {
   };
 
   const current = playlist?.[currentIndex] || songs[currentIndex] || null;
+
+  // Get repeat icon based on mode
+  const getRepeatIcon = () => {
+    if (repeatMode === 'repeat-one') {
+      return <Repeat1 size={22} className='text-red-500' />;
+    } else if (repeatMode === 'autoplay') {
+      return <Repeat size={22} className='text-red-500' />;
+    }
+    return <Repeat size={22} className='text-gray-700' />;
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -119,6 +149,14 @@ const Music = () => {
             <span>{formatTime(duration)}</span>
           </div>
           <div className='flex items-center justify-center gap-6 mt-4'>
+            <button 
+              aria-label='Shuffle' 
+              onClick={toggleShuffle} 
+              className={`p-2 rounded-full ${shuffle ? 'bg-red-100' : 'bg-gray-100'} hover:bg-gray-200`}
+              title={shuffle ? 'Shuffle: On' : 'Shuffle: Off'}
+            >
+              <Shuffle size={22} className={shuffle ? 'text-red-500' : 'text-gray-700'} />
+            </button>
             <button aria-label='Previous' onClick={prev} className='p-2 rounded-full bg-gray-100 hover:bg-gray-200'>
               <SkipBack size={22} className='text-gray-700' />
             </button>
@@ -127,6 +165,18 @@ const Music = () => {
             </button>
             <button aria-label='Next' onClick={next} className='p-2 rounded-full bg-gray-100 hover:bg-gray-200'>
               <SkipForward size={22} className='text-gray-700' />
+            </button>
+            <button 
+              aria-label='Repeat Mode' 
+              onClick={toggleRepeatMode} 
+              className={`p-2 rounded-full ${repeatMode !== 'none' ? 'bg-red-100' : 'bg-gray-100'} hover:bg-gray-200`}
+              title={
+                repeatMode === 'none' ? 'Repeat: Off' : 
+                repeatMode === 'autoplay' ? 'Autoplay: On' : 
+                'Repeat One: On'
+              }
+            >
+              {getRepeatIcon()}
             </button>
           </div>
           <div className='sliders mt-4 flex-center mr-2 scale-75'>
