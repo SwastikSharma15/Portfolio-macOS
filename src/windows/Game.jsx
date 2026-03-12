@@ -22,6 +22,14 @@ const games = [
     url: 'https://chessnubot.vercel.app/',
     description: 'Play chess online',
     category: 'strategy'
+  },
+  {
+    id: 'pentagoo',
+    name: 'PentaGo Online',
+    icon: '/images/pEntaggo.png',
+    url: 'https://pentagoonline.vercel.app/',
+    description: 'Strategic Game',
+    category: 'strategy'
   }
 ]
 
