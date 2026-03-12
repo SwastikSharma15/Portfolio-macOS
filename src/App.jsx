@@ -38,7 +38,6 @@ if (!isMobile) {
 
 const App = () => {
   const { windows } = useWindowStore();
-  const [eagerMount, setEagerMount] = useState(false);
   
   useEffect(() => {
     const saved = localStorage.getItem('wallpaperUrl');
@@ -50,12 +49,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // Skip eager mounting on mobile to improve initial load
+    // Skip preloading on mobile to improve initial load
     if (isMobile) return;
     
-    const start = () => {
-      setEagerMount(true);
-      // warm the import cache so subsequent mounts don't suspend
+    const preloadModules = () => {
+      // Preload modules during idle time for faster window opens
+      // but don't render until user actually opens them
       import('./windows/Finder.jsx');
       import('./windows/Resume.jsx');
       import('./windows/Safari.jsx');
@@ -71,9 +70,9 @@ const App = () => {
     };
     if ('requestIdleCallback' in window) {
       // @ts-ignore
-      requestIdleCallback(start);
+      requestIdleCallback(preloadModules);
     } else {
-      setTimeout(start, 100);
+      setTimeout(preloadModules, 100);
     }
   }, []);
   
@@ -85,22 +84,22 @@ const App = () => {
           <Welcome />
           <Dock />
         </Suspense>
-        {!isMobile && eagerMount ? (
+        {!isMobile && (
           <>
-            <Suspense fallback={null}><Terminal /></Suspense>
-            <Suspense fallback={null}><Safari /></Suspense>
-            <Suspense fallback={null}><Resume /></Suspense>
-            <Suspense fallback={null}><Image /></Suspense>
-            <Suspense fallback={null}><Text /></Suspense>
-            <Suspense fallback={null}><Finder /></Suspense>
-            <Suspense fallback={null}><Contact /></Suspense>
-            <Suspense fallback={null}><Photos /></Suspense>
-            <Suspense fallback={null}><Music /></Suspense>
-            <Suspense fallback={null}><Game /></Suspense>
-            <Suspense fallback={null}><VSCode /></Suspense>
-            <Suspense fallback={null}><Trash /></Suspense>
+            {windows['terminal']?.isOpen && <Suspense fallback={null}><Terminal /></Suspense>}
+            {windows['safari']?.isOpen && <Suspense fallback={null}><Safari /></Suspense>}
+            {windows['resume']?.isOpen && <Suspense fallback={null}><Resume /></Suspense>}
+            {windows['image']?.isOpen && <Suspense fallback={null}><Image /></Suspense>}
+            {windows['text']?.isOpen && <Suspense fallback={null}><Text /></Suspense>}
+            {windows['finder']?.isOpen && <Suspense fallback={null}><Finder /></Suspense>}
+            {windows['contact']?.isOpen && <Suspense fallback={null}><Contact /></Suspense>}
+            {windows['photos']?.isOpen && <Suspense fallback={null}><Photos /></Suspense>}
+            {windows['music']?.isOpen && <Suspense fallback={null}><Music /></Suspense>}
+            {windows['game']?.isOpen && <Suspense fallback={null}><Game /></Suspense>}
+            {windows['vscode']?.isOpen && <Suspense fallback={null}><VSCode /></Suspense>}
+            {windows['trash']?.isOpen && <Suspense fallback={null}><Trash /></Suspense>}
           </>
-        ) : null}
+        )}
         {!isMobile && <Suspense fallback={null}><Home /></Suspense>}
       </main>
       {/* Defer analytics on mobile for better performance */}
