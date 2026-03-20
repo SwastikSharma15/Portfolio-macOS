@@ -130,7 +130,7 @@ const blogPosts = [
 const techStack = [
   {
     category: "Frontend",
-    items: ["React.js", "JavaScript", "HTML5", "Vite"],
+    items: ["React.js", "JavaScript", "TypeScript", "HTML5", "Vite"],
   },
   {
     category: "Styling",
@@ -773,6 +773,60 @@ const WORK_LOCATION = {
           fileType: "fig",
           href: "https://github.com/SwastikSharma15/VS-Code-Web-IDE",
           position: "top-60 right-70",
+        },
+      ],
+    },
+
+    // PentaGo Online
+    {
+      id: 11,
+      name: "PentaGo Online",
+      icon: "/images/folder.webp",
+      kind: "folder",
+      position: "top-10 right-5",
+      windowPosition: "top-[10vh] left-40",
+      children: [
+        {
+          id: 1,
+          name: "PentaGo Online.txt",
+          icon: "/images/txt.png",
+          kind: "file",
+          fileType: "txt",
+          position: "top-25 left-30",
+          description: [
+            "PentaGo Online is a real-time multiplayer strategy game I built using React, TypeScript, and Socket.io.",
+            "The game is based on the Pentago board system, where players not only place pieces but also rotate sections of the board, which makes state management and game logic significantly more complex than traditional grid-based games. I implemented complete game logic including turn handling, quadrant rotation, and win detection.",
+            "One of the key challenges was maintaining real-time synchronization between players. I used Socket.io to handle room-based connections and ensure both players see consistent game states without lag or desync issues.",
+            "On the frontend, I focused on smooth UI interactions and animations using Framer Motion, along with efficient state management using Zustand to handle complex game states cleanly.",
+            "This project helped me gain strong experience in real-time systems, state management, and building interactive, performance-focused applications rather than static interfaces."
+          ],
+        },
+        {
+          id: 2,
+          name: "PentaGoOnline.com",
+          icon: "/images/safari.webp",
+          kind: "file",
+          fileType: "url",
+          href: "https://pentagoonline.vercel.app",
+          position: "top-10 right-20",
+        },
+        {
+          id: 4,
+          name: "PentaGo Online.png",
+          icon: "/images/image.png",
+          kind: "file",
+          fileType: "img",
+          position: "top-67 right-85",
+          imageUrl: "/images/pentagoonline.png",
+        },
+        {
+          id: 5,
+          name: "PentaGo Online.github",
+          icon: "/images/plain.png",
+          kind: "file",
+          fileType: "fig",
+          href: "https://github.com/SwastikSharma15/PentaGo-Online",
+          position: "top-60 right-20",
         },
       ],
     },
