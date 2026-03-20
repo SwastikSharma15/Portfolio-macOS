@@ -4,6 +4,7 @@ import useLocationStore from '#store/location';
 import { useEffect, useRef, useCallback } from "react";
 import React from "react";
 import Clock from './Clock';
+import NavLink from "./NavLink";
 
 // Only import heavy dependencies on desktop
 const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
@@ -143,10 +144,8 @@ const NavBar = React.memo(() => {
         )}
 
         <ul>
-          {navLinks.map(({ name, id, type }) => (
-            <li key={id} onClick={() => handleNavLinkClick(type)}>
-              <p>{name}</p>
-            </li>
+          {navLinks.map((link) => (
+            <NavLink key={link.id} {...link} onClick={() => handleNavLinkClick(link.type)} />
           ))}
         </ul>
       </div>
