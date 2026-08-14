@@ -152,7 +152,7 @@ const Welcome = React.memo(() => {
           )}
         </h1>
         <div className="small-screen">
-          <p className="text-white">Mobile version is still in progress. For the full experience, use a larger screen or visit the desktop site. </p>
+          <p className="text-white">Mobile version is still in progress (will go live within a week). For the full experience, use a larger screen or visit the desktop site. </p>
           <br />
           <a href="https://swastiksharma15.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" className="flex-center text-blue-100">For Mobile Devices visit here</a>
         </div>
