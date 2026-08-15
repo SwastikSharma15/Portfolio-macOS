@@ -5,31 +5,80 @@ import { Providers } from "@/components/shared/providers"
 
 export const viewport = {
   themeColor: '#111827',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 export const metadata: Metadata = {
-  title: 'Swastik Sharma | Frontend Developer Portfolio | Swastik Macolio',
-  description: 'Modern frontend developer portfolio by Swastik Sharma. Explore high-performance React projects, interactive UI experiments, articles, and galleries built with React, Vite, Tailwind CSS, and GSAP animations.',
+  title: {
+    default: 'Swastik Sharma | Frontend Developer Portfolio | Swastik Macolio',
+    template: '%s | Swastik Sharma'
+  },
+  description: 'Top-tier frontend developer portfolio by Swastik Sharma. Featuring high-performance React applications, Next.js architecture, interactive UI/UX, and GSAP animations.',
+  applicationName: 'Swastik Macolio',
+  keywords: [
+    'Swastik Sharma',
+    'Frontend Developer',
+    'React Developer',
+    'Next.js Developer',
+    'Web Developer Portfolio',
+    'TypeScript Developer',
+    'UI/UX Enthusiast',
+    'GSAP Animations',
+    'Tailwind CSS',
+    'Software Engineer India',
+    'JavaScript Expert',
+    'Macolio',
+    'macOS Portfolio',
+    'Interactive Website'
+  ],
+  authors: [{ name: 'Swastik Sharma', url: 'https://www.swastikmacolio.in' }],
+  creator: 'Swastik Sharma',
+  publisher: 'Swastik Sharma',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   alternates: {
     canonical: 'https://www.swastikmacolio.in/',
   },
-  authors: [{ name: 'Swastik Sharma' }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Swastik Sharma - Frontend Developer Portfolio | Swastik Sharma Macolio',
-    description: 'Dive into modern React projects, UI demos, articles, and interactive showcases built using React, Vite, Tailwind, and GSAP by Swastik Sharma.',
-    url: 'https://www.swastikmacolio.in/',
-    siteName: 'Swastik Sharma Macolio Portfolio',
-    images: [{ url: 'https://www.swastikmacolio.in/preview.png' }],
-    locale: 'en_US',
     type: 'website',
+    locale: 'en_US',
+    url: 'https://www.swastikmacolio.in/',
+    siteName: 'Swastik Sharma Portfolio',
+    title: 'Swastik Sharma | Frontend Developer Portfolio',
+    description: 'Explore the interactive frontend developer portfolio of Swastik Sharma, featuring modern Next.js and React projects.',
+    images: [
+      {
+        url: 'https://www.swastikmacolio.in/preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Swastik Sharma Portfolio Preview',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Swastik Sharma - Frontend Developer | Swastik Macolio Portfolio',
-    description: 'Explore modern frontend work - React projects, UI experiments, articles, and galleries by Swastik Sharma.',
+    title: 'Swastik Sharma | Frontend Developer Portfolio',
+    description: 'Explore the interactive frontend developer portfolio of Swastik Sharma.',
     creator: '@swastiksharma',
     images: ['https://www.swastikmacolio.in/preview.png'],
   },
+  category: 'technology',
 }
 
 export default function RootLayout({
