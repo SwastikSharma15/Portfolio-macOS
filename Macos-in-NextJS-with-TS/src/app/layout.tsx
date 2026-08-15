@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     default: 'Swastik Sharma | Frontend Developer Portfolio | Swastik Macolio',
     template: '%s | Swastik Sharma'
   },
-  description: 'Top-tier frontend developer portfolio by Swastik Sharma. Featuring high-performance React applications, Next.js architecture, interactive UI/UX, and GSAP animations.',
+  description: 'A fully interactive macOS and iOS-style portfolio built with Next.js and TypeScript, featuring a draggable dock, window management system, custom apps (Music Player, Gallery, Resume, Projects, Terminal, Finder, etc.), smooth GSAP animations, and native-like UI interactions. Designed to feel like a functional operating system running seamlessly inside your browser across all devices.',
   applicationName: 'Swastik Macolio',
   keywords: [
     'Swastik Sharma',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     url: 'https://www.swastikmacolio.in/',
     siteName: 'Swastik Sharma Portfolio',
     title: 'Swastik Sharma | Frontend Developer Portfolio',
-    description: 'Explore the interactive frontend developer portfolio of Swastik Sharma, featuring modern Next.js and React projects.',
+    description: 'A fully interactive macOS and iOS-style portfolio built with Next.js and TypeScript, featuring a draggable dock, window management system, custom apps (Music Player, Gallery, Resume, Projects, Terminal, Finder, etc.), smooth GSAP animations, and native-like UI interactions. Designed to feel like a functional operating system running seamlessly inside your browser across all devices.',
     images: [
       {
         url: 'https://www.swastikmacolio.in/preview.png',
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Swastik Sharma | Frontend Developer Portfolio',
-    description: 'Explore the interactive frontend developer portfolio of Swastik Sharma.',
+    description: 'A fully interactive macOS and iOS-style portfolio built with Next.js and TypeScript, featuring a draggable dock, window management system, custom apps (Music Player, Gallery, Resume, Projects, Terminal, Finder, etc.), smooth GSAP animations, and native-like UI interactions. Designed to feel like a functional operating system running seamlessly inside your browser across all devices.',
     creator: '@swastiksharma',
     images: ['https://www.swastikmacolio.in/preview.png'],
   },
