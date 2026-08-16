@@ -23,13 +23,13 @@ export function KeyPad({ onKeyPress }: KeyPadProps) {
   ]
 
   return (
-    <div className="grid grid-cols-3 gap-4 px-4">
+    <div className="grid grid-cols-3 gap-4 px-8 max-w-[320px] mx-auto w-full">
       {keys.map((key) => (
         <motion.button
           key={key.number}
           whileTap={{ scale: 0.95 }}
           onClick={() => onKeyPress(key.number)}
-          className="aspect-square rounded-full bg-gray-100 flex flex-col items-center justify-center"
+          className="w-16 h-16 rounded-full bg-gray-100 flex flex-col items-center justify-center mx-auto"
         >
           <span className="text-2xl font-light">{key.number}</span>
           {key.letters && <span className="text-[10px] text-gray-500 mt-1">{key.letters}</span>}

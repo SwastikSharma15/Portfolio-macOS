@@ -12,9 +12,10 @@ interface AppIconProps {
   icon?: string | ReactNode
   customIcon?: ReactNode
   size?: "normal" | "small"
+  onClick?: () => void
 }
 
-export function AppIcon({ id, name, color, icon, customIcon, size = "normal" }: AppIconProps) {
+export function AppIcon({ id, name, color, icon, customIcon, size = "normal", onClick }: AppIconProps) {
   const { openApp } = useAppState()
 
   const renderIcon = () => {
@@ -65,10 +66,10 @@ export function AppIcon({ id, name, color, icon, customIcon, size = "normal" }: 
       )
     }
 
-    if (id === "contact") return <img src="/images/contact.webp" className="w-full h-full object-cover scale-125" alt="Contact" />
-    if (id === "games") return <img src="/images/game.webp" className="w-full h-full object-cover scale-125" alt="Games" />
-    if (id === "finder") return <img src="/images/finder.png" className="w-full h-full object-cover scale-125" alt="Finder" />
-    if (id === "calculator") return <img src="/icons/ios-calculator-app-icon.svg" className="w-full h-full object-cover" alt="Calculator" />
+    if (id === "contact") return <Image src="/images/contact.webp" className="w-full h-full object-cover scale-125" alt="Contact" width={60} height={60} />
+    if (id === "games") return <Image src="/images/game.webp" className="w-full h-full object-cover scale-125" alt="Games" width={60} height={60} />
+    if (id === "finder") return <Image src="/images/finder.png" className="w-full h-full object-cover scale-125" alt="Finder" width={60} height={60} />
+    if (id === "calculator") return <Image src="/icons/ios-calculator-app-icon.svg" className="w-full h-full object-cover" alt="Calculator" width={60} height={60} />
 
     if (id === "calendar") {
       const date = new Date()
@@ -106,6 +107,7 @@ export function AppIcon({ id, name, color, icon, customIcon, size = "normal" }: 
         onClick={(e) => {
           const rect = e.currentTarget.getBoundingClientRect()
           openApp(id, rect)
+          onClick?.()
         }}
         onTouchStart={(e) => e.stopPropagation()}
         style={{

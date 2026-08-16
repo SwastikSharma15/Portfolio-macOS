@@ -3,6 +3,7 @@ import React, { useRef, useCallback, useEffect } from 'react'
 import { Tooltip } from 'react-tooltip';
 import useWindowStore from '#store/window';
 import useLocationStore from '#store/location';
+import Image from 'next/image';
 
 const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
 
@@ -120,11 +121,13 @@ const Dock = React.memo(() => {
               disabled= {!canOpen}
               onClick={(e) => toggleApp({id, canOpen, action}, e)}
             >
-              <img 
+              <Image 
                 src={`/images/${icon}`}
                 alt={name}
-                loading='lazy'
+                width={48}
+                height={48}
                 className={canOpen ? '' : 'opacity-60'}
+                priority={true}
               />
             </button>
           </div>
