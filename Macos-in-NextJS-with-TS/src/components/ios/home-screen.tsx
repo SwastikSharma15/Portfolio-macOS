@@ -114,7 +114,7 @@ export function HomeScreen({ time }: HomeScreenProps) {
     }
   }, [page2Apps])
 
-  // Preload critical SVG icons
+  // Preload critical SVG icons using native DOM Image constructor
   useEffect(() => {
     const preloadIcons = [
       "calendar",
@@ -133,7 +133,7 @@ export function HomeScreen({ time }: HomeScreenProps) {
     ]
 
     preloadIcons.forEach((icon) => {
-      const img = new Image()
+      const img = new window.Image()
       img.src = `/iosicons/${icon}.svg`
     })
   }, [])

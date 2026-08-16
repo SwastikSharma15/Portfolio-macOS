@@ -1,9 +1,22 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Script from 'next/script'
 import { Providers } from "@/components/shared/providers"
+import { Georama, Roboto_Mono } from 'next/font/google'
 
-export const viewport = {
+const georama = Georama({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-georama',
+})
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+})
+
+export const viewport: Viewport = {
   themeColor: '#111827',
   width: 'device-width',
   initialScale: 1,
@@ -87,12 +100,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${georama.variable} ${robotoMono.variable}`}>
       <head>
         <link rel="icon" href="/swastik_logo_border.ico" sizes="any" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet" />
+        <link rel="preload" href="/images/gal9.webp" as="image" type="image/webp" fetchPriority="high" />
         
         {/* Schema.org JSON-LD */}
         <Script id="schema-website" type="application/ld+json" dangerouslySetInnerHTML={{ __html: `
@@ -133,8 +144,8 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         {/* Google Analytics */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-QF6X2WC0BG" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-QF6X2WC0BG" strategy="lazyOnload" />
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
