@@ -1,31 +1,32 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { LockScreen } from "@/components/ios/lock-screen"
 import { HomeScreen } from "@/components/ios/home-screen"
 import { useAppState } from "@/lib/app-state"
 import { ControlCenter } from "@/components/ios/control-center/control-center"
 import { SwipeDetector } from "@/components/ios/swipe-detector"
-
-import { Clock } from "@/components/ios/ios-clock"
-import { Settings } from "@/components/ios/settings"
-import { Weather } from "@/components/ios/weather"
-import { Calendar } from "@/components/ios/calendar"
-import { Camera } from "@/components/ios/camera"
-import { Photos } from "@/components/ios/photos"
-import { NotesApp } from "@/components/ios/notes/notes-app"
-import { MessagesApp } from "@/components/ios/messages/messages-app"
-import { SafariApp } from "@/components/ios/safari/safari-app"
-import { MusicApp } from "@/components/ios/music/music-app"
-import { PhoneApp } from "@/components/ios/phone/phone-app"
-import { MapsApp } from "@/components/ios/maps"
-import { GameApp } from "@/components/ios/game"
-import { ContactApp } from "@/components/ios/contact"
-import { FinderApp } from "@/components/ios/finder"
-import { CalculatorApp } from "@/components/ios/calculator"
 import { AppWrapper } from "@/components/ios/hoc/AppWrapper"
 import { StatusBar } from "./status-bar"
+
+// Lazy load all iOS app components — only loaded when user opens them
+const Clock = lazy(() => import("@/components/ios/ios-clock").then(m => ({ default: m.Clock })))
+const Settings = lazy(() => import("@/components/ios/settings").then(m => ({ default: m.Settings })))
+const Weather = lazy(() => import("@/components/ios/weather").then(m => ({ default: m.Weather })))
+const Calendar = lazy(() => import("@/components/ios/calendar").then(m => ({ default: m.Calendar })))
+const Camera = lazy(() => import("@/components/ios/camera").then(m => ({ default: m.Camera })))
+const Photos = lazy(() => import("@/components/ios/photos").then(m => ({ default: m.Photos })))
+const NotesApp = lazy(() => import("@/components/ios/notes/notes-app").then(m => ({ default: m.NotesApp })))
+const MessagesApp = lazy(() => import("@/components/ios/messages/messages-app").then(m => ({ default: m.MessagesApp })))
+const SafariApp = lazy(() => import("@/components/ios/safari/safari-app").then(m => ({ default: m.SafariApp })))
+const MusicApp = lazy(() => import("@/components/ios/music/music-app").then(m => ({ default: m.MusicApp })))
+const PhoneApp = lazy(() => import("@/components/ios/phone/phone-app").then(m => ({ default: m.PhoneApp })))
+const MapsApp = lazy(() => import("@/components/ios/maps").then(m => ({ default: m.MapsApp })))
+const GameApp = lazy(() => import("@/components/ios/game").then(m => ({ default: m.GameApp })))
+const ContactApp = lazy(() => import("@/components/ios/contact").then(m => ({ default: m.ContactApp })))
+const FinderApp = lazy(() => import("@/components/ios/finder").then(m => ({ default: m.FinderApp })))
+const CalculatorApp = lazy(() => import("@/components/ios/calculator").then(m => ({ default: m.CalculatorApp })))
 
 const Apps = {
   clock: AppWrapper(Clock, { title: "Clock" }),
@@ -228,7 +229,7 @@ export default function IosLayout() {
               overflow: "hidden",
             }}
           >
-            {ActiveApp && <ActiveApp />}
+            {ActiveApp && <Suspense fallback={null}><ActiveApp /></Suspense>}
           </div>
 
           {/* Control Center */}
