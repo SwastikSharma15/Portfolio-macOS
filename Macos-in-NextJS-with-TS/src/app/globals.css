@@ -14,8 +14,8 @@ body {
 /* Keep background image on mobile */
 
 @theme {
-  --font-georama: "Georama", sans-serif;
-  --font-roboto: "Roboto Mono", monospace;
+  --font-georama: var(--font-georama), "Georama", sans-serif;
+  --font-roboto: var(--font-roboto), "Roboto Mono", monospace;
   --breakpoint-3xl: 1920px;
 
   --color-border: hsl(var(--border));

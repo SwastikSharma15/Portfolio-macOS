@@ -4,7 +4,10 @@ const nextConfig = {
     // Allow production builds to successfully complete even if
     // your project has type errors during this migration phase.
     ignoreBuildErrors: true,
-  }
+  },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
 };
 
 export default nextConfig;
