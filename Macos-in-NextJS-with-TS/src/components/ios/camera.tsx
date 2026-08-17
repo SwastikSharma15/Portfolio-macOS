@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState, memo } from "react"
-import { FlipVertical2Icon as FlipCamera2, RotateCcw, ArrowLeft } from "lucide-react"
+import { SwitchCamera, ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAppState } from "@/lib/app-state"
 
@@ -105,7 +105,7 @@ const CameraControls = memo(
 
           {/* Camera Flip */}
           <button onClick={onFlip} className="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center">
-            <RotateCcw className="h-6 w-6 text-white" />
+            <SwitchCamera className="h-6 w-6 text-white" />
           </button>
         </div>
       </div>
@@ -124,10 +124,10 @@ const ZoomControls = memo(
     zoom: string
     setZoom: (zoom: string) => void
   }) => {
-    const zoomLevels = [".5", "1", "2"]
+    const zoomLevels = ["1", "2"]
 
     return (
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 flex gap-2 bg-black/40 rounded-full px-2 py-1">
+      <div className="absolute bottom-48 left-1/2 -translate-x-1/2 flex gap-2 bg-black/60 backdrop-blur-md rounded-full px-3 py-1.5 z-10 transition-all duration-300">
         {zoomLevels.map((level) => (
           <button
             key={level}
@@ -196,7 +196,13 @@ export function Camera() {
       // Draw video frame to canvas
       const context = canvas.getContext("2d")
       if (context) {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height)
+        const zoomFactor = parseFloat(zoom)
+        const sw = video.videoWidth / zoomFactor
+        const sh = video.videoHeight / zoomFactor
+        const sx = (video.videoWidth - sw) / 2
+        const sy = (video.videoHeight - sh) / 2
+
+        context.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height)
         const photoUrl = canvas.toDataURL("image/jpeg")
         setLastPhoto(photoUrl)
 
@@ -213,7 +219,7 @@ export function Camera() {
       }
     }
     setIsCapturing(false)
-  }, [])
+  }, [zoom])
 
   const handleOpenPhotos = useCallback(() => {
     // Close camera and open photos app
@@ -224,7 +230,14 @@ export function Camera() {
   return (
     <div className="relative h-full w-full bg-black overflow-hidden">
       {/* Camera Preview */}
-      <video ref={videoRef} autoPlay playsInline muted className="h-full w-full object-cover" />
+      <video 
+        ref={videoRef} 
+        autoPlay 
+        playsInline 
+        muted 
+        className="h-full w-full object-cover transition-transform duration-300 ease-out"
+        style={{ transform: `scale(${zoom})` }}
+      />
 
       {/* Hidden canvas for capturing photos */}
       <canvas ref={canvasRef} className="hidden" />
@@ -238,17 +251,6 @@ export function Camera() {
           </div>
         </div>
       )}
-
-      {/* Top Controls */}
-      <div className="absolute top-2 left-0 right-0 flex justify-between px-4 z-10">
-        <button onClick={closeApp} className="rounded-full bg-black/40 p-2">
-          <ArrowLeft className="h-6 w-6 text-white" />
-        </button>
-
-        <button onClick={handleFlipCamera} className="rounded-full bg-black/40 p-2">
-          <FlipCamera2 className="h-6 w-6 text-white" />
-        </button>
-      </div>
 
       {/* Zoom Controls */}
       <ZoomControls zoom={zoom} setZoom={setZoom} />
