@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { MoreHorizontal, ImageIcon, Heart, FolderIcon, Search, ChevronLeft } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useAppState } from "@/lib/app-state"
 import { PhotoDetail } from "./photos/photo-detail"
@@ -128,13 +128,20 @@ export function Photos() {
     { id: "Search", icon: Search },
   ] as const
 
-  // If a photo is selected, show the photo detail view
-  if (selectedPhoto) {
-    return <PhotoDetail photo={selectedPhoto} onBack={() => setSelectedPhoto(null)} onDelete={deletePhoto} />
-  }
-
   return (
-    <div className="h-full w-full bg-white flex flex-col">
+    <div className="h-full w-full bg-white flex flex-col relative overflow-hidden">
+      <AnimatePresence>
+        {selectedPhoto && (
+          <PhotoDetail
+            key="photo-detail"
+            photo={selectedPhoto}
+            onBack={() => setSelectedPhoto(null)}
+            onDelete={deletePhoto}
+          />
+        )}
+      </AnimatePresence>
+
+      <div className="h-full w-full flex flex-col absolute inset-0">
       {/* Header */}
       <div className="pt-12 pb-2 px-4 bg-white/75 backdrop-blur-xl border-b border-gray-200/50">
         <div className="flex items-center justify-between">
@@ -168,10 +175,12 @@ export function Photos() {
               onClick={() => handlePhotoClick(photo)}
               whileTap={{ scale: 0.95 }}
             >
-              <img
+              <motion.img
+                layoutId={`photo-${photo.id}`}
                 src={photo.url || "/placeholder.svg"}
                 alt={`Photo from ${formatDate(photo.timestamp)}`}
                 className="w-full h-full object-cover"
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
               />
               {isSelecting && (
                 <div className={cn("absolute inset-0 bg-black/20", selectedPhotos.has(photo.id) && "bg-blue-500/20")}>
@@ -222,6 +231,7 @@ export function Photos() {
           </button>
         </div>
       )}
+      </div>
     </div>
   )
 }

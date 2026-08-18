@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ArrowLeft, Share2, Heart, Trash2, MoreHorizontal } from "lucide-react"
 import { useAppState } from "@/lib/app-state"
+import { motion } from "framer-motion"
 
 interface PhotoDetailProps {
   photo: {
@@ -35,7 +36,12 @@ export function PhotoDetail({ photo, onBack, onDelete }: PhotoDetailProps) {
   }
 
   return (
-    <div className="h-full w-full bg-black flex flex-col relative select-none">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="absolute inset-0 z-50 bg-black flex flex-col select-none"
+    >
       {/* Header */}
       {showControls && (
         <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 pt-12 pb-4 bg-gradient-to-b from-black/90 via-black/50 to-transparent">
@@ -78,11 +84,13 @@ export function PhotoDetail({ photo, onBack, onDelete }: PhotoDetailProps) {
       )}
 
       {/* Photo */}
-      <div className="flex-1 flex items-center justify-center p-2" onClick={handleImageClick}>
-        <img
+      <div className="flex-1 flex items-center justify-center p-2 overflow-hidden" onClick={handleImageClick}>
+        <motion.img
+          layoutId={`photo-${photo.id}`}
           src={photo.url || "/placeholder.svg"}
           alt={`Photo from ${formatDate(photo.timestamp)}`}
           className="max-h-full max-w-full object-contain select-none"
+          transition={{ type: "spring", damping: 25, stiffness: 300 }}
         />
       </div>
 
@@ -331,6 +339,6 @@ export function PhotoDetail({ photo, onBack, onDelete }: PhotoDetailProps) {
           </div>
         </>
       )}
-    </div>
+    </motion.div>
   )
 }
