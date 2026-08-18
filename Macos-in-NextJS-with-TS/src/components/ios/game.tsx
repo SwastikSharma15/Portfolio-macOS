@@ -67,7 +67,7 @@ export function GameApp() {
   ] as const
 
   return (
-    <div className="h-full w-full bg-white flex flex-col text-black font-sans relative overflow-hidden">
+    <div className="h-full w-full bg-white flex flex-col text-black font-sans relative overflow-hidden pt-10">
       <AnimatePresence>
         {selectedGame && (
           <motion.div
@@ -77,19 +77,15 @@ export function GameApp() {
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="absolute inset-0 z-50 flex flex-col bg-white"
           >
-            <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-md absolute top-0 left-0 right-0 z-[60] border-b border-gray-200">
-              <button
-                onClick={() => setSelectedGame(null)}
-                className="flex items-center gap-1 text-blue-500 hover:text-blue-600 transition-colors"
-              >
-                <ChevronLeft className="w-6 h-6" />
-                <span className="text-lg">Games</span>
-              </button>
-              <div className="w-16" /> {/* Spacer */}
-            </div>
+            <button
+              onClick={() => setSelectedGame(null)}
+              className="absolute top-12 left-4 z-[70] w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white shadow-lg pointer-events-auto"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
             <iframe
               src={selectedGame.url}
-              className="w-full h-full border-none flex-1 pointer-events-auto select-auto pt-[60px]"
+              className="w-full h-full border-none flex-1 pointer-events-auto select-auto"
               style={{
                 pointerEvents: "auto",
                 userSelect: "auto",
@@ -111,31 +107,6 @@ export function GameApp() {
       </div>
 
       <div className="flex-1 overflow-y-auto px-5 pt-2">
-        {/* Featured Section */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xl font-bold">Featured</h2>
-          </div>
-          <motion.div
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setSelectedGame(games[0])}
-            className="relative w-full h-[280px] rounded-2xl overflow-hidden cursor-pointer shadow-md"
-          >
-            <img src={games[0].banner} alt={games[0].name} className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-5 w-full flex items-end justify-between">
-              <div>
-                <p className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-1">New Release</p>
-                <h3 className="text-2xl font-bold text-white mb-1">{games[0].name}</h3>
-                <p className="text-gray-300 text-sm">{games[0].description}</p>
-              </div>
-              <button className="bg-white/20 backdrop-blur-md text-white rounded-full p-3 mb-1">
-                <Play className="w-5 h-5 fill-white" />
-              </button>
-            </div>
-          </motion.div>
-        </div>
-
         {/* All Games Grid */}
         <div className="pb-6">
           <div className="flex items-center justify-between mb-4">

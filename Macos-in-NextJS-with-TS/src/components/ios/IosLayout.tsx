@@ -173,7 +173,7 @@ export default function IosLayout() {
 
   const ActiveApp = renderedApp ? Apps[renderedApp as keyof typeof Apps] : null
 
-  const isDarkStatusBar = currentApp === "camera" || currentApp === "games"
+  const isDarkStatusBar = currentApp === "camera"
 
   return (
     <div
