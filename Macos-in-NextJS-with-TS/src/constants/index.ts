@@ -1128,6 +1128,7 @@ const WINDOW_CONFIG = {
   music: { ...DEFAULT_WINDOW },
   game: { ...DEFAULT_WINDOW },
   trash: { ...DEFAULT_WINDOW },
+  simulator: { ...DEFAULT_WINDOW },
 };
 
 export { INITIAL_Z_INDEX, WINDOW_CONFIG };
