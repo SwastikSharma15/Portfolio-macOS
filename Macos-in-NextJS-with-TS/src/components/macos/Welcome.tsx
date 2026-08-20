@@ -3,8 +3,8 @@ import React, { useRef, useEffect } from "react";
 const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
 
 const FONT_WEIGHTS = {
-  subtitle: { min: 100, max:400, default: 100},
-  title: { min: 400, max: 900, default: 400},
+  subtitle: { min: 100, max: 400, default: 100 },
+  title: { min: 400, max: 900, default: 400 },
 }
 
 // Memoized character span component
@@ -31,11 +31,11 @@ const renderText = (text, className, baseWeight = 400) => {
 };
 
 const setupTextHover = (container, type, gsap) => {
-  if (!container || !gsap) return () => {};
+  if (!container || !gsap) return () => { };
 
   const letters = container.querySelectorAll("span");
 
-  const { min, max, default: base} = FONT_WEIGHTS[type];
+  const { min, max, default: base } = FONT_WEIGHTS[type];
 
   const animateLetter = (letter, weight, duration = 0.25) => {
     return gsap.to(letter, {
@@ -46,15 +46,15 @@ const setupTextHover = (container, type, gsap) => {
   };
 
   const handleMouseMove = (e) => {
-    const {left} = container.getBoundingClientRect();
+    const { left } = container.getBoundingClientRect();
     const mouseX = e.clientX - left;
 
     letters.forEach((letter) => {
-      const { left: l, width: w} = letter.getBoundingClientRect();
+      const { left: l, width: w } = letter.getBoundingClientRect();
       const distance = Math.abs(mouseX - (l - left + w / 2));
-      const intensity = Math.exp(-(distance ** 2)/ 20000);
+      const intensity = Math.exp(-(distance ** 2) / 20000);
 
-      animateLetter(letter, min + (max-min) * intensity); 
+      animateLetter(letter, min + (max - min) * intensity);
     })
   }
 
@@ -77,8 +77,8 @@ const Welcome = React.memo(() => {
 
   useEffect(() => {
     // Skip text hover effects on mobile for better performance
-    if (isMobile) return () => {};
-    
+    if (isMobile) return () => { };
+
     // Dynamically import GSAP only on desktop
     Promise.all([
       import('gsap'),
@@ -110,8 +110,8 @@ const Welcome = React.memo(() => {
             gsap.to(welcomePlaceholder, { opacity: 1, duration: 0.2 });
           },
           onDragEnd: function () {
-            const isWithinSnapZone = 
-              Math.abs(this.x) < snapThreshold && 
+            const isWithinSnapZone =
+              Math.abs(this.x) < snapThreshold &&
               Math.abs(this.y) < snapThreshold;
 
             if (isWithinSnapZone) {
@@ -122,7 +122,7 @@ const Welcome = React.memo(() => {
                 ease: "power2.out",
               });
             }
-            
+
             gsap.to(welcomePlaceholder, { opacity: 0, duration: 0.2 });
           }
         });
@@ -145,19 +145,13 @@ const Welcome = React.memo(() => {
             100
           )}
         </p>
-        <h1 ref={titleRef} className="mt-7">
-          {renderText(
-            "portfolio",
-            "text-8xl sm:text-7xl md:text-9xl italic font-georama text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] tracking-wide" 
-          )}
-        </h1>
         <div className="small-screen">
           <p className="text-white">Mobile version is still in progress. For the full experience, use a larger screen or visit the desktop site. </p>
           <br />
           <a href="https://swastiksharma15.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" className="flex-center text-blue-100">For Mobile Devices visit here</a>
         </div>
       </section>
-      
+
       {/* Placeholder for welcome text */}
       {!isMobile && <div className="welcome-placeholder" ref={welcomePlaceholderRef}></div>}
     </>
