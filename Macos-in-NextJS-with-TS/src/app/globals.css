@@ -221,7 +221,7 @@ body {
   }
 
   #welcome {
-    @apply text-gray-200 flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10 z-0;
+    @apply text-gray-200 flex flex-col justify-center items-center absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10 z-0;
     user-select: none;
 
     .small-screen {
@@ -497,6 +497,10 @@ body {
         height: auto;
       }
     }
+  }
+
+  #simulator {
+    @apply absolute top-16 left-28 rounded-xl overflow-hidden;
   }
 
   #resume {

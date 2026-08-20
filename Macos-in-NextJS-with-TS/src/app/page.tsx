@@ -8,6 +8,9 @@ const NavBar = lazy(() => import('#components/macos/NavBar'))
 const Welcome = lazy(() => import('#components/macos/Welcome'))
 const Dock = lazy(() => import('#components/macos/Dock'))
 const Home = lazy(() => import('#components/macos/Home'))
+const AsciiHover = lazy(() => import('#components/macos/AsciiHover'))
+const IosWidget = lazy(() => import('#components/macos/IosWidget'))
+const IosSimulator = lazy(() => import('#components/macos/windows/IosSimulator'))
 
 // Lazy load iOS Layout
 const IosLayout = lazy(() => import('#components/ios/IosLayout'))
@@ -93,10 +96,12 @@ const App = () => {
             <IosLayout />
           ) : (
             <>
+              <AsciiHover text="hey i am swastik swlcom to my portfolio" />
               <NavBar />
               <Welcome />
               <Dock />
               <Home />
+              <IosWidget />
             </>
           )}
         </Suspense>
@@ -116,6 +121,7 @@ const App = () => {
           {windows['game']?.isOpen && <Suspense fallback={null}><Game /></Suspense>}
           {windows['vscode']?.isOpen && <Suspense fallback={null}><VSCode /></Suspense>}
           {windows['trash']?.isOpen && <Suspense fallback={null}><Trash /></Suspense>}
+          {windows['simulator']?.isOpen && <Suspense fallback={null}><IosSimulator /></Suspense>}
           
           {isMobile && <Suspense fallback={null}><IosAppWrapper /></Suspense>}
         </>
