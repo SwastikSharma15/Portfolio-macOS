@@ -122,7 +122,6 @@ export function HomeScreen({ time }: HomeScreenProps) {
       "camera",
       "mail",
       "notes",
-      "reminders",
       "clock",
       "phone",
       "safari",

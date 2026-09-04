@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useAppState } from "@/lib/app-state"
 import Image from "next/image"
+import React, { memo } from "react"
 import type { ReactNode } from "react"
 
 interface AppIconProps {
@@ -15,32 +16,25 @@ interface AppIconProps {
   onClick?: () => void
 }
 
-export function AppIcon({ id, name, color, icon, customIcon, size = "normal", onClick }: AppIconProps) {
-  const { openApp } = useAppState()
+const svgIcons = new Set([
+  "music",
+  "messages",
+  "safari",
+  "maps",
+  "camera",
+  "phone",
+  "mail",
+  "clock",
+  "settings",
+  "photos",
+  "notes",
+])
+
+export const AppIcon = memo(function AppIcon({ id, name, color, icon, customIcon, size = "normal", onClick }: AppIconProps) {
+  const openApp = useAppState((state) => state.openApp)
 
   const renderIcon = () => {
-    const svgIcons = [
-      "facetime",
-      "music",
-      "messages",
-      "podcasts",
-      "safari",
-      "maps",
-      "health",
-      "camera",
-      "reminders",
-      "phone",
-      "mail",
-      "clock",
-      "settings",
-      "wallet",
-      "photos",
-      "news",
-      "tv",
-      "notes",
-    ]
-
-    if (svgIcons.includes(id)) {
+    if (svgIcons.has(id)) {
       return (
         <Image
           src={`/iosicons/${id}.svg`}
@@ -120,4 +114,4 @@ export function AppIcon({ id, name, color, icon, customIcon, size = "normal", on
       {size === "normal" && <div className="text-[10px] text-white mt-1.5 ios26-text-glow font-medium drop-shadow-md">{name}</div>}
     </div>
   )
-}
+})
