@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'
 import { Trash2 } from 'lucide-react/dist/esm/icons'
 
 const Trash = () => {
-  const { setActiveLocation } = useLocationStore()
+  const setActiveLocation = useLocationStore(state => state.setActiveLocation);
 
   useEffect(() => {
     // When Trash window opens, set the active location to trash

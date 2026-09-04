@@ -9,9 +9,11 @@ import React from "react";
 
 const Finder = () => {
 
-  const { openWindow, focusWindow } = useWindowStore();
+  const openWindow = useWindowStore(state => state.openWindow);
+  const focusWindow = useWindowStore(state => state.focusWindow);
 
-  const { activeLocation, setActiveLocation } = useLocationStore();
+  const activeLocation = useLocationStore(state => state.activeLocation);
+  const setActiveLocation = useLocationStore(state => state.setActiveLocation);
 
   const openItem = (item) => {
     if(item.fileType === 'pdf') return openWindow('resume');

@@ -5,7 +5,8 @@ import useWindowStore from '#store/window';
 import { Mail, Search } from 'lucide-react/dist/esm/icons';
 const Photos = () => {
 
-  const { openWindow, focusWindow } = useWindowStore();
+  const openWindow = useWindowStore(state => state.openWindow);
+  const focusWindow = useWindowStore(state => state.focusWindow);
 
   const email = 'swastik15.sharma.work@gmail.com';
 
