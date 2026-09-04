@@ -29,7 +29,11 @@ function getDockIconRect(windowKey: string): { x: number; y: number; width: numb
 // ─── Genie Math ───────────────────────────────────────────────────────────────
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-const eioC = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const eioC = (t: number) => {
+  if (t < 0.5) return 4 * t * t * t;
+  const b = -2 * t + 2;
+  return 1 - (b * b * b) / 2;
+};
 const eIn2 = (t: number) => t * t;
 const eOut2 = (t: number) => 1 - (1 - t) * (1 - t);
 
@@ -46,37 +50,56 @@ function renderGenie(
   WIN_H: number
 ): void {
   ctx.clearRect(0, 0, W, H);
-  for (let y = 0; y < WIN_H; y++) {
-    const r = y / WIN_H;
-    const rowXStart = dir === "minimize" ? (1 - r) * 0.65 : r * 0.65;
-    const xP = clamp((rawT - rowXStart) / (1 - rowXStart), 0, 1);
-    const xE = eioC(xP);
-    const rowYStart = dir === "minimize" ? (1 - r) * 0.2 : r * 0.2;
-    const yP = clamp((rawT - rowYStart) / (1 - rowYStart), 0, 1);
-    const yE = eIn2(yP);
-    let left: number, right: number, destY: number;
-    if (dir === "minimize") {
-      left = lerp(win.x, dock.x, xE);
-      right = lerp(win.x + WIN_W, dock.x, xE);
-      destY = lerp(win.y + y, dock.y, yE);
-    } else {
-      left = lerp(dock.x, win.x, xE);
-      right = lerp(dock.x, win.x + WIN_W, xE);
-      destY = lerp(dock.y, win.y + y, yE);
+  
+  // Adaptive slicing: reduces draw calls by 50% on tall windows while maintaining visual fidelity
+  const step = WIN_H > 400 ? 2 : 1;
+  const isMin = dir === "minimize";
+
+  if (isMin) {
+    for (let y = 0; y < WIN_H; y += step) {
+      const r = y / WIN_H;
+      const rowXStart = (1 - r) * 0.65;
+      const xP = clamp((rawT - rowXStart) / (1 - rowXStart), 0, 1);
+      const xE = eioC(xP);
+      const rowYStart = (1 - r) * 0.2;
+      const yP = clamp((rawT - rowYStart) / (1 - rowYStart), 0, 1);
+      const yE = eIn2(yP);
+
+      const left = lerp(win.x, dock.x, xE);
+      const right = lerp(win.x + WIN_W, dock.x, xE);
+      const destY = lerp(win.y + y, dock.y, yE);
+      const rowW = right - left;
+      if (rowW < 0.8) continue;
+      ctx.drawImage(off, 0, y, WIN_W, step, left, destY, rowW, step);
     }
-    const rowW = right - left;
-    if (rowW < 0.8) continue;
-    ctx.drawImage(off, 0, y, WIN_W, 1, left, destY, rowW, 1);
+  } else {
+    for (let y = 0; y < WIN_H; y += step) {
+      const r = y / WIN_H;
+      const rowXStart = r * 0.65;
+      const xP = clamp((rawT - rowXStart) / (1 - rowXStart), 0, 1);
+      const xE = eioC(xP);
+      const rowYStart = r * 0.2;
+      const yP = clamp((rawT - rowYStart) / (1 - rowYStart), 0, 1);
+      const yE = eIn2(yP);
+
+      const left = lerp(dock.x, win.x, xE);
+      const right = lerp(dock.x, win.x + WIN_W, xE);
+      const destY = lerp(dock.y, win.y + y, yE);
+      const rowW = right - left;
+      if (rowW < 0.8) continue;
+      ctx.drawImage(off, 0, y, WIN_W, step, left, destY, rowW, step);
+    }
   }
-  const glowRaw = dir === "minimize" ? rawT : 1 - rawT;
+
+  const glowRaw = isMin ? rawT : 1 - rawT;
   if (glowRaw > 0.75) {
     const a = eOut2((glowRaw - 0.75) / 0.25) * 0.3;
-    const hex = Math.round(a * 255).toString(16).padStart(2, "0");
     const g = ctx.createRadialGradient(dock.x, dock.y, 0, dock.x, dock.y, 55);
-    g.addColorStop(0, "#ffffff" + hex);
+    g.addColorStop(0, `rgba(255, 255, 255, ${a})`);
     g.addColorStop(1, "transparent");
     ctx.fillStyle = g;
-    ctx.fillRect(0, 0, W, H);
+    // Bounded fillRect around the dock area only (avoids full-screen 4K paint)
+    ctx.fillRect(dock.x - 60, dock.y - 60, 120, 120);
   }
 }
 
@@ -120,10 +143,8 @@ const WindowWrapper = (Component: React.ComponentType<any>, windowKey: any) => {
               skipFonts: true,
               fontEmbedCSS: '',
               filter: (node: any) => {
-                if (node?.tagName?.toUpperCase() === 'LINK') return false;
-                if (node?.tagName?.toUpperCase() === 'STYLE') return false;
-                if (node?.tagName?.toUpperCase() === 'IFRAME') return false;
-                if (node?.tagName?.toUpperCase() === 'VIDEO') return false;
+                const tag = node?.tagName?.toUpperCase();
+                if (tag === 'LINK' || tag === 'STYLE' || tag === 'IFRAME' || tag === 'VIDEO' || tag === 'IMG') return false;
                 return true;
               }
             });
@@ -143,7 +164,7 @@ const WindowWrapper = (Component: React.ComponentType<any>, windowKey: any) => {
       const observer = new MutationObserver(() => {
         clearTimeout(timeoutId);
         if (idleId) (window as any).cancelIdleCallback?.(idleId);
-        timeoutId = setTimeout(takeSnapshot, 1500);
+        timeoutId = setTimeout(takeSnapshot, 2500);
       });
 
       observer.observe(el, { childList: true, subtree: true, characterData: true, attributes: true });
@@ -222,24 +243,46 @@ const WindowWrapper = (Component: React.ComponentType<any>, windowKey: any) => {
           const winRect = el.getBoundingClientRect();
 
           try {
-            offCanvas = await toCanvas(content, {
-              pixelRatio: 1,
-              cacheBust: false,
-              skipFonts: true,
-              fontEmbedCSS: '', // Force skip font fetching (prevents slow cross-origin CSS rule reading)
-              filter: (node: any) => {
-                if (node?.tagName?.toUpperCase() === 'LINK') return false;
-                if (node?.tagName?.toUpperCase() === 'STYLE') return false;
-                if (node?.tagName?.toUpperCase() === 'IFRAME') return false;
-                // Skip heavy video elements during snapshot
-                if (node?.tagName?.toUpperCase() === 'VIDEO') return false;
-                return true;
-              }
-            });
+            offCanvas = await Promise.race([
+              toCanvas(content, {
+                pixelRatio: 1,
+                cacheBust: false,
+                skipFonts: true,
+                fontEmbedCSS: '', // Force skip font fetching
+                filter: (node: any) => {
+                  const tag = node?.tagName?.toUpperCase();
+                  // Skip external stylesheets, frames, videos, and heavy unrendered image fetches
+                  if (tag === 'LINK' || tag === 'STYLE' || tag === 'IFRAME' || tag === 'VIDEO' || tag === 'IMG') {
+                    return false;
+                  }
+                  return true;
+                }
+              }),
+              new Promise<never>((_, reject) =>
+                setTimeout(() => reject(new Error("Genie snapshot timeout")), 800)
+              )
+            ]);
+            cachedCanvasRef.current = offCanvas;
           } catch (e) {
-            console.error("Genie snapshot failed:", e);
-            if (dir === 'minimize') finishClose(windowKey);
-            else { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
+            console.warn("Genie snapshot fallback:", e);
+            if (dir === 'minimize') {
+              gsap.to(el, {
+                scale: 0.85,
+                opacity: 0,
+                y: 30,
+                duration: 0.25,
+                ease: 'power2.in',
+                onComplete: () => finishClose(windowKey)
+              });
+            } else {
+              el.style.display = 'block';
+              el.style.pointerEvents = 'auto';
+              gsap.fromTo(
+                el,
+                { scale: 0.85, opacity: 0, y: 30 },
+                { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }
+              );
+            }
             isAnimatingRef.current = false;
             return;
           }
@@ -249,17 +292,18 @@ const WindowWrapper = (Component: React.ComponentType<any>, windowKey: any) => {
 
         // Snapshot is ready! Setup the canvas overlay
         canvas.style.display = 'block';
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         const w = window.innerWidth;
         const h = window.innerHeight;
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
-        const ctx = canvas.getContext('2d');
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
         if (!ctx) {
           isAnimatingRef.current = false;
           return;
         }
         ctx.scale(dpr, dpr);
+        ctx.imageSmoothingQuality = 'medium';
 
         // Hide the real window now that we have a snapshot
         el.style.opacity = '0';

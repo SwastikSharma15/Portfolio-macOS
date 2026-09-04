@@ -76,18 +76,27 @@ const Dock = React.memo(() => {
     const rect = iconEl.getBoundingClientRect();
     const originRect = { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
 
-    // Special case: Trash icon should open Finder focused on Trash
+    // Special case: Trash icon should toggle Finder focused on Trash
     if (app.action === 'trash') {
-      // Ensure Finder window opens and switch Finder to Trash location
-      openWindow('finder', null, originRect);
-      setActiveLocation(locations.trash);
+      const finderWin = windows['finder'];
+      if (finderWin?.isOpen && !finderWin.isClosing) {
+        startClose('finder');
+      } else {
+        openWindow('finder', null, originRect);
+        setActiveLocation(locations.trash);
+      }
       return;
     }
 
-    // Special case: Finder icon should open Finder focused on Work
+    // Special case: Finder icon (Portfolio) should toggle Finder focused on Work
     if (app.id === 'finder') {
-      openWindow('finder', null, originRect);
-      setActiveLocation(locations.work);
+      const finderWin = windows['finder'];
+      if (finderWin?.isOpen && !finderWin.isClosing) {
+        startClose('finder');
+      } else {
+        openWindow('finder', null, originRect);
+        setActiveLocation(locations.work);
+      }
       return;
     }
 
@@ -98,7 +107,7 @@ const Dock = React.memo(() => {
       return;
     }
 
-    if (win.isOpen) {
+    if (win.isOpen && !win.isClosing) {
       startClose(app.id);
     } else {
       openWindow(app.id, null, originRect);
