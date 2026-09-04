@@ -4,9 +4,8 @@ import WindowWrapper from '#hoc/WindowWrapper'
 import useWindowStore from '#store/window'
 
 const Text = () => {
-  const { windows } = useWindowStore()
-  const data = windows.txtfile?.data;
-  const isMaximized = !!windows.txtfile?.isMaximized;
+  const data = useWindowStore(state => state.windows.txtfile?.data);
+  const isMaximized = useWindowStore(state => !!state.windows.txtfile?.isMaximized);
   // Hooks must be declared unconditionally at the top level
 
   if (!data) return null

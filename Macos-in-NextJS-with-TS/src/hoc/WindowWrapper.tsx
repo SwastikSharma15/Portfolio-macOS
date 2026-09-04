@@ -150,7 +150,7 @@ const WindowWrapper = (Component: React.ComponentType<any>, windowKey: any) => {
             });
             cachedCanvasRef.current = offCanvas;
           } catch (e) {
-            console.warn("Background snapshot failed:", e);
+            // Snapshot fallback handled in animation
           }
         };
 
@@ -161,19 +161,10 @@ const WindowWrapper = (Component: React.ComponentType<any>, windowKey: any) => {
         }
       };
 
-      const observer = new MutationObserver(() => {
-        clearTimeout(timeoutId);
-        if (idleId) (window as any).cancelIdleCallback?.(idleId);
-        timeoutId = setTimeout(takeSnapshot, 2500);
-      });
-
-      observer.observe(el, { childList: true, subtree: true, characterData: true, attributes: true });
-
-      // Initial snapshot after open
-      timeoutId = setTimeout(takeSnapshot, 500);
+      // Take single snapshot once after open when stable
+      timeoutId = setTimeout(takeSnapshot, 600);
 
       return () => {
-        observer.disconnect();
         clearTimeout(timeoutId);
         if (idleId) (window as any).cancelIdleCallback?.(idleId);
       };

@@ -5,13 +5,17 @@ import useWindowStore from '#store/window'
 import { useEffect } from 'react'
 
 const VSCode = () => {
-  const { focusWindow, windows } = useWindowStore();
-  const isFocused = (() => {
-    const openWindows = Object.values(windows).filter(w => w.isOpen);
-    const maxZ = openWindows.reduce((m, w) => Math.max(m, w.zIndex), 0);
-    const self = windows['vscode'];
-    return !!self?.isOpen && self?.zIndex === maxZ;
-  })();
+  const focusWindow = useWindowStore(state => state.focusWindow);
+  const isFocused = useWindowStore(state => {
+    const self = state.windows['vscode'];
+    if (!self?.isOpen) return false;
+    let maxZ = 0;
+    for (const key in state.windows) {
+      const w = state.windows[key as keyof typeof state.windows];
+      if (w.isOpen && w.zIndex > maxZ) maxZ = w.zIndex;
+    }
+    return self.zIndex === maxZ;
+  });
 
   useEffect(() => {
     const handler = (e) => {
