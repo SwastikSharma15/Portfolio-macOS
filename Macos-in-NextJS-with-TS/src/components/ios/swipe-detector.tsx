@@ -10,7 +10,9 @@ interface SwipeDetectorProps {
 }
 
 export function SwipeDetector({ children }: SwipeDetectorProps) {
-  const { openControlCenter, closeControlCenter, controlCenterOpen } = useAppState()
+  const openControlCenter = useAppState((state) => state.openControlCenter)
+  const closeControlCenter = useAppState((state) => state.closeControlCenter)
+  const controlCenterOpen = useAppState((state) => state.controlCenterOpen)
   const containerRef = useRef<HTMLDivElement>(null)
   const touchStartY = useRef(0)
   const touchStartX = useRef(0)
