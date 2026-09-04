@@ -12,7 +12,6 @@ const Dock = React.memo(() => {
   // Optimized selectors - only subscribe to what we need
   const openWindow = useWindowStore(state => state.openWindow);
   const startClose = useWindowStore(state => state.startClose);
-  const windows = useWindowStore(state => state.windows);
   const setActiveLocation = useLocationStore(state => state.setActiveLocation);
 
   const dockRef = useRef(null);
@@ -76,9 +75,11 @@ const Dock = React.memo(() => {
     const rect = iconEl.getBoundingClientRect();
     const originRect = { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
 
+    const currentWindows = useWindowStore.getState().windows;
+
     // Special case: Trash icon should toggle Finder focused on Trash
     if (app.action === 'trash') {
-      const finderWin = windows['finder'];
+      const finderWin = currentWindows['finder'];
       if (finderWin?.isOpen && !finderWin.isClosing) {
         startClose('finder');
       } else {
@@ -90,7 +91,7 @@ const Dock = React.memo(() => {
 
     // Special case: Finder icon (Portfolio) should toggle Finder focused on Work
     if (app.id === 'finder') {
-      const finderWin = windows['finder'];
+      const finderWin = currentWindows['finder'];
       if (finderWin?.isOpen && !finderWin.isClosing) {
         startClose('finder');
       } else {
@@ -100,7 +101,7 @@ const Dock = React.memo(() => {
       return;
     }
 
-    const win = windows[app.id];
+    const win = currentWindows[app.id as keyof typeof currentWindows];
 
     if (!win) {
       console.log(`Window not found for app: ${app.id}`);
@@ -112,7 +113,7 @@ const Dock = React.memo(() => {
     } else {
       openWindow(app.id, null, originRect);
     }
-  }, [openWindow, startClose, windows, setActiveLocation]);
+  }, [openWindow, startClose, setActiveLocation]);
 
   return (
     <section id='dock'>

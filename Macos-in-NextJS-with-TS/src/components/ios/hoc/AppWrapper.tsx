@@ -13,7 +13,7 @@ interface AppWrapperOptions {
 
 export const AppWrapper = (WrappedComponent: React.ComponentType<any>, options?: AppWrapperOptions) => {
   return function WrappedApp(props: any) {
-    const { closeApp } = useAppState()
+    const closeApp = useAppState((state) => state.closeApp)
 
     const handleBackClick = (e: React.MouseEvent) => {
       e.preventDefault()
