@@ -1,19 +1,3 @@
-export interface Song {
-  id: string
-  title: string
-  artist: string
-  albumArt: string
-  audioUrl: string
-}
-
-export interface Album {
-  id: string
-  title: string
-  artist: string
-  artwork: string
-  songs: Song[]
-}
-
 export interface Message {
   id: string
   content: string
@@ -35,24 +19,3 @@ export interface Conversation {
   lastMessageAt: number
   unreadCount: number
 }
-
-export interface ChatMessage {
-  id: string
-  sender: string
-  content: string
-  timestamp: number
-  currentSong?: Song
-}
-
-export type AppName =
-  | "clock"
-  | "settings"
-  | "weather"
-  | "calendar"
-  | "camera"
-  | "photos"
-  | "notes"
-  | "messages"
-  | "safari"
-  | "music"
-  | "phone"
